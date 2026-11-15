@@ -7,9 +7,15 @@ const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 const client = new MongoClient(uri);
 const db = client.db(process.env.MONGODB_DB || "portfolio");
 
+const ADMIN_EMAIL = (
+  process.env.ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+).trim().toLowerCase();
+
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  secret: process.env.BETTER_AUTH_SECRET || "better_auth_default_secret_min_32_chars_long_12345",
+  secret:
+    process.env.BETTER_AUTH_SECRET ||
+    "better_auth_default_secret_min_32_chars_long_12345",
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
@@ -24,23 +30,19 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user) => {
-          const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
-          let role = "user";
+          const userEmail = user.email?.trim().toLowerCase();
 
-          if (adminEmail && user.email?.toLowerCase() === adminEmail) {
-            role = "admin";
-          } else {
-            // First user registered automatically gets admin role
-            const count = await db.collection("user").countDocuments();
-            if (count === 0) {
-              role = "admin";
-            }
+          // Disallow any unauthorized email registration
+          if (userEmail !== ADMIN_EMAIL) {
+            throw new Error(
+              "Registration is closed. Only the portfolio administrator is authorized."
+            );
           }
 
           return {
             data: {
               ...user,
-              role,
+              role: "admin",
             },
           };
         },

@@ -66,10 +66,12 @@ export async function POST(request) {
       headers: await headers(),
     });
 
-    const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+    const adminEmail = (
+      process.env.ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+    ).trim().toLowerCase();
     const isAdmin =
-      session?.user?.role === "admin" ||
-      (adminEmail && session?.user?.email?.toLowerCase() === adminEmail);
+      session?.user?.role === "admin" &&
+      session?.user?.email?.toLowerCase() === adminEmail;
 
     if (!isAdmin) {
       return Response.json(

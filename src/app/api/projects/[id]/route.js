@@ -19,10 +19,12 @@ async function verifyAdmin() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const adminEmail = (
+    process.env.ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+  ).trim().toLowerCase();
   return (
-    session?.user?.role === "admin" ||
-    (adminEmail && session?.user?.email?.toLowerCase() === adminEmail)
+    session?.user?.role === "admin" &&
+    session?.user?.email?.toLowerCase() === adminEmail
   );
 }
 

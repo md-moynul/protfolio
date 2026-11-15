@@ -36,10 +36,12 @@ export default function AdminDashboard() {
   const [formMessage, setFormMessage] = useState({ type: "", text: "" });
 
   const userRole = session?.user?.role || "user";
-  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL?.trim().toLowerCase();
+  const adminEmail = (
+    process.env.NEXT_PUBLIC_ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+  ).trim().toLowerCase();
   const isAdmin =
-    userRole === "admin" ||
-    (adminEmail && session?.user?.email?.toLowerCase() === adminEmail);
+    userRole === "admin" &&
+    session?.user?.email?.toLowerCase() === adminEmail;
 
   // Fetch projects
   const loadProjects = async () => {

@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn, signUp, useSession } from "@/lib/auth-client";
+import { signIn, useSession } from "@/lib/auth-client";
 
 export default function LoginPage() {
   const router = useRouter();
   const { data: session, isPending: sessionLoading } = useSession();
 
-  const [mode, setMode] = useState("signin"); // "signin" | "signup"
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,30 +27,27 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
 
+    const adminEmail = (
+      process.env.NEXT_PUBLIC_ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+    ).toLowerCase();
+
+    // Restrict login to authorized admin email only
+    if (email.trim().toLowerCase() !== adminEmail) {
+      setError("Access denied: Only the portfolio administrator can sign in.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      if (mode === "signin") {
-        const res = await signIn.email({
-          email,
-          password,
-          callbackURL: "/admin",
-        });
-        if (res?.error) {
-          setError(res.error.message || "Invalid email or password.");
-        } else {
-          router.push("/admin");
-        }
+      const res = await signIn.email({
+        email: email.trim().toLowerCase(),
+        password,
+        callbackURL: "/admin",
+      });
+      if (res?.error) {
+        setError(res.error.message || "Invalid credentials.");
       } else {
-        const res = await signUp.email({
-          email,
-          password,
-          name,
-          callbackURL: "/admin",
-        });
-        if (res?.error) {
-          setError(res.error.message || "Failed to register account.");
-        } else {
-          router.push("/admin");
-        }
+        router.push("/admin");
       }
     } catch (err) {
       setError(err?.message || "An unexpected error occurred.");
@@ -83,11 +78,14 @@ export default function LoginPage() {
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             Back to Portfolio
           </Link>
+          <div className="w-12 h-12 rounded-2xl bg-[#2D8CFF]/10 text-[#2D8CFF] flex items-center justify-center mx-auto mb-4 border border-[#2D8CFF]/20">
+            <span className="material-symbols-outlined text-2xl">admin_panel_settings</span>
+          </div>
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
             Admin Portal
           </h1>
           <p className="text-sm text-gray-600 dark:text-zinc-400 mt-2">
-            Sign in with your credentials to manage projects
+            Sign in with authorized administrator credentials
           </p>
         </div>
 
@@ -100,66 +98,18 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Mode Switcher */}
-          <div className="flex rounded-xl bg-gray-100 dark:bg-white/5 p-1 mb-6 border border-gray-200/60 dark:border-white/5">
-            <button
-              type="button"
-              onClick={() => {
-                setMode("signin");
-                setError("");
-              }}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                mode === "signin"
-                  ? "bg-white dark:bg-white/15 text-gray-900 dark:text-white shadow-sm"
-                  : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setMode("signup");
-                setError("");
-              }}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                mode === "signup"
-                  ? "bg-white dark:bg-white/15 text-gray-900 dark:text-white shadow-sm"
-                  : "text-gray-500 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              Register
-            </button>
-          </div>
-
           {/* Form */}
           <form onSubmit={handleEmailAuth} className="space-y-4">
-            {mode === "signup" && (
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-zinc-300 mb-1.5">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Admin Name"
-                  className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#2D8CFF] transition-colors"
-                />
-              </div>
-            )}
-
             <div>
               <label className="block text-xs font-semibold text-gray-700 dark:text-zinc-300 mb-1.5">
-                Email Address
+                Admin Email Address
               </label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@example.com"
+                placeholder="mdmoynulislam.dev@gmail.com"
                 className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-[#2D8CFF] transition-colors"
               />
             </div>
@@ -198,10 +148,8 @@ export default function LoginPage() {
             >
               {loading ? (
                 <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-              ) : mode === "signin" ? (
-                "Sign In"
               ) : (
-                "Create Account"
+                "Sign In to Dashboard"
               )}
             </button>
           </form>
