@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signOut } from "@/lib/auth-client";
+import { email as defaultAdminEmail } from "@/data/profile";
 import { FaGithub } from "react-icons/fa";
 import {
   FiExternalLink,
@@ -53,7 +54,7 @@ export default function AdminDashboard() {
 
   const userRole = session?.user?.role || "user";
   const adminEmail = (
-    process.env.NEXT_PUBLIC_ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+    process.env.NEXT_PUBLIC_ADMIN_EMAIL || defaultAdminEmail
   ).trim().toLowerCase();
   const isAdmin =
     userRole === "admin" &&
@@ -222,7 +223,7 @@ export default function AdminDashboard() {
               .map((f) => f.trim())
               .filter(Boolean)
           : [],
-        img: formData.img || "/images/smart-health.png",
+        img: formData.img || "/images/smart-health.webp",
       };
 
       const isEditing = Boolean(editingProject);
@@ -324,7 +325,7 @@ export default function AdminDashboard() {
           <div className="w-16 h-16 rounded-2xl bg-red-500/10 text-red-500 flex items-center justify-center mx-auto mb-4">
             <FiShield className="text-3xl" />
           </div>
-          <div className="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20 mb-3">
+          <div className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20 mb-3">
             Role: {userRole}
           </div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -386,7 +387,7 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200 dark:border-white/10">
               <div className="text-right hidden sm:block">
                 <p className="text-xs font-bold leading-tight">{session.user.name || "Moynul"}</p>
-                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
                   {session.user.email}
                 </p>
               </div>
@@ -458,7 +459,7 @@ export default function AdminDashboard() {
               </div>
 
               {editingProject && (
-                <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                   Editing Mode
                 </span>
               )}
@@ -757,7 +758,7 @@ export default function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm border-collapse">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-white/10 text-[11px] font-bold uppercase tracking-wider text-gray-400 dark:text-zinc-500">
+                  <tr className="border-b border-gray-200 dark:border-white/10 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-zinc-400">
                     <th className="pb-3 pr-4">Project</th>
                     <th className="pb-3 px-4">Tags</th>
                     <th className="pb-3 px-4">Date</th>
@@ -777,7 +778,7 @@ export default function AdminDashboard() {
                           <div className="flex items-center gap-3">
                             <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 dark:bg-white/5 flex-shrink-0 relative border border-gray-200/50 dark:border-white/10">
                               <Image
-                                src={project.img || "/images/smart-health.png"}
+                                src={project.img || "/images/smart-health.webp"}
                                 alt={project.title}
                                 fill
                                 className="object-cover"
@@ -798,7 +799,7 @@ export default function AdminDashboard() {
                             {project.tags?.slice(0, 3).map((tag, i) => (
                               <span
                                 key={i}
-                                className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#2D8CFF]/10 text-[#2D8CFF]"
+                                className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#2D8CFF]/10 text-[#2D8CFF]"
                               >
                                 {tag}
                               </span>

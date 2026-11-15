@@ -18,10 +18,9 @@ const Education = () => (
           <Image
             alt="Academic Foundation - Computer Science Study"
             className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-            src="/images/education.png"
+            src="/images/education.webp"
             width={800}
             height={800}
-            priority
           />
         </div>
       </motion.div>

@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
+
+const emptySubscribe = () => () => {};
 
 // Individual Bubble component to avoid Hook violations
 const TrailBubble = ({ mouseX, mouseY, index, isVisible }) => {
@@ -35,12 +37,11 @@ const CustomCursor = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const NUM_BUBBLES = 12;
 
   useEffect(() => {
-    setIsClient(true);
     const onMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);

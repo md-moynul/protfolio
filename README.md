@@ -17,10 +17,49 @@ A **MERN Stack Developer** from Rangpur, Bangladesh. I build full-stack web apps
 
 ## 🛠️ Tech Stack & Skills
 
-- **Frontend**: React.js, Next.js (App Router), Tailwind CSS, Framer Motion, HTML5, CSS3, JavaScript (ES6+)
-- **Backend**: Node.js, Express.js, RESTful APIs, JWT Authentication
-- **Database**: MongoDB, Mongoose
+- **Frontend**: React.js, Next.js (App Router), Tailwind CSS v4, Framer Motion, HTML5, CSS3, JavaScript (ES6+), TypeScript
+- **Backend**: Node.js, Express.js, RESTful APIs, Nodemailer, Better Auth
+- **Database**: MongoDB (official MongoDB driver)
 - **Tools & Workflow**: Git, GitHub, VS Code, Vercel, npm
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the project root based on `.env.example`:
+
+```env
+# MongoDB Database
+MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net
+MONGODB_DB=portfolio
+
+# Better Auth
+BETTER_AUTH_SECRET=your_32_char_secret_key_here
+BETTER_AUTH_URL=http://localhost:3000
+
+# Administrator Credentials
+ADMIN_EMAIL=mdmoynulislam.dev@gmail.com
+ALLOW_ADMIN_SIGNUP=false
+
+# Nodemailer Contact Form (SMTP)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_gmail_app_password
+CONTACT_TO_EMAIL=mdmoynulislam.dev@gmail.com
+```
+
+---
+
+## 📦 Project Database Seeding
+
+To seed your MongoDB database with the initial projects from `public/data/projects.json`, run:
+
+```bash
+node --env-file=.env scripts/seed-projects.mjs
+```
+
+> **Note:** The script safely checks if the `projects` collection already contains documents and will skip insertion if data exists.
 
 ---
 

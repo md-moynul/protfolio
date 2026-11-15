@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp } from "./Animations";
-import { FiMail, FiMapPin, FiSend, FiLoader } from "react-icons/fi";
+import { FiMail, FiMapPin, FiSend, FiLoader, FiAlertCircle } from "react-icons/fi";
 import { email } from "@/data/profile";
 
 const Contact = () => {
@@ -12,41 +12,83 @@ const Contact = () => {
     email: "",
     subject: "",
     message: "",
+    website: "", // honeypot
   });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus({ type: "", message: "" });
+
+    // Client-side validation
+    const trimmedName = formState.name.trim();
+    const trimmedEmail = formState.email.trim();
+    const trimmedSubject = formState.subject.trim();
+    const trimmedMessage = formState.message.trim();
+
+    if (trimmedName.length < 2) {
+      setStatus({ type: "error", message: "Please provide your name (at least 2 characters)." });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      setStatus({ type: "error", message: "Please enter a valid email address." });
+      return;
+    }
+
+    if (trimmedSubject.length < 1) {
+      setStatus({ type: "error", message: "Please provide a subject." });
+      return;
+    }
+
+    if (trimmedMessage.length < 10) {
+      setStatus({ type: "error", message: "Message must be at least 10 characters long." });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_ACCESS_KEY_HERE",
-          ...formState,
-          subject: `New Portfolio Message: ${formState.subject}`,
-          from_name: formState.name,
+          name: trimmedName,
+          email: trimmedEmail,
+          subject: trimmedSubject,
+          message: trimmedMessage,
+          website: formState.website,
         }),
       });
 
       const result = await response.json();
-      if (result.success) {
-        setStatus({ type: "success", message: "Message sent successfully! I'll get back to you soon." });
-        setFormState({ name: "", email: "", subject: "", message: "" });
+
+      if (response.ok && result.success) {
+        setStatus({
+          type: "success",
+          message: "Thank you! Your message has been sent successfully. I'll get back to you soon.",
+        });
+        setFormState({ name: "", email: "", subject: "", message: "", website: "" });
       } else {
-        setStatus({ type: "error", message: result.message || "Something went wrong. Please try again." });
+        setStatus({
+          type: "error",
+          message: result.message || "Failed to send message. Please try again.",
+        });
       }
-    } catch (error) {
-      setStatus({ type: "error", message: "Network error. Please check your connection." });
+    } catch {
+      setStatus({
+        type: "error",
+        message: "Network error occurred while sending. Please try again or email directly.",
+      });
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setStatus({ type: "", message: "" }), 5000);
+      setTimeout(() => {
+        setStatus((prev) => (prev.type === "success" ? { type: "", message: "" } : prev));
+      }, 7000);
     }
   };
 
@@ -88,6 +130,18 @@ const Contact = () => {
             </div>
           </div>
           <form className="w-full lg:w-1/2 flex flex-col gap-4 relative z-10" onSubmit={handleSubmit}>
+            {/* Visually hidden honeypot field for anti-spam */}
+            <input
+              type="text"
+              name="website"
+              value={formState.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="opacity-0 absolute -z-50 pointer-events-none h-0 w-0 overflow-hidden"
+            />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="font-label-caps text-xs font-semibold text-gray-600 dark:text-zinc-300 ml-2">Name</label>
@@ -152,15 +206,32 @@ const Contact = () => {
                 <FiSend className="text-sm" />
               )}
             </motion.button>
-            {status.message && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`text-center text-sm font-medium mt-2 ${status.type === "success" ? "text-emerald-500" : "text-red-500"}`}
-              >
-                {status.message}
-              </motion.p>
-            )}
+            <div aria-live="polite">
+              {status.message && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`text-center text-sm font-medium mt-3 p-3 rounded-xl flex items-center justify-center gap-2 ${
+                    status.type === "success"
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
+                      : "bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 flex-col"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    {status.type === "error" && <FiAlertCircle className="text-base flex-shrink-0" />}
+                    <span>{status.message}</span>
+                  </div>
+                  {status.type === "error" && (
+                    <span className="text-xs text-gray-600 dark:text-zinc-400 mt-1">
+                      Direct Email:{" "}
+                      <a href={`mailto:${email}`} className="text-[#2D8CFF] font-semibold underline">
+                        {email}
+                      </a>
+                    </span>
+                  )}
+                </motion.div>
+              )}
+            </div>
           </form>
         </motion.div>
       </div>

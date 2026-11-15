@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Education from "@/components/Education";
@@ -9,8 +7,44 @@ import About from "@/components/About";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { getProjectsCollection } from "@/lib/mongodb";
+import { promises as fs } from "fs";
+import path from "path";
 
-export default function Home() {
+// ISR: revalidate every 60 seconds
+export const revalidate = 60;
+
+async function getInitialProjects() {
+  try {
+    const collection = await getProjectsCollection();
+    const docs = await collection.find({}).sort({ id: 1 }).toArray();
+    if (docs && docs.length > 0) {
+      return docs.map((p) => ({
+        ...p,
+        _id: p._id?.toString(),
+        id: p.id !== undefined ? p.id : p._id?.toString(),
+      }));
+    }
+  } catch (err) {
+    console.warn(
+      "MongoDB query in page.js failed, falling back to local projects.json:",
+      err?.message
+    );
+  }
+
+  try {
+    const filePath = path.join(process.cwd(), "public", "data", "projects.json");
+    const data = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Failed to load local projects.json in page.js:", err);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const initialProjects = await getInitialProjects();
+
   return (
     <main className="relative min-h-screen">
       <InteractiveBackground />
@@ -18,7 +52,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
-      <Projects />
+      <Projects initialProjects={initialProjects} />
       <Education />
       <Contact />
       <Footer />

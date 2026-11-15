@@ -13,6 +13,7 @@ import {
   FiMail,
 } from "react-icons/fi";
 import { signIn, useSession } from "@/lib/auth-client";
+import { email as defaultAdminEmail } from "@/data/profile";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function LoginPage() {
     setLoading(true);
 
     const adminEmail = (
-      process.env.NEXT_PUBLIC_ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
+      process.env.NEXT_PUBLIC_ADMIN_EMAIL || defaultAdminEmail
     ).toLowerCase();
 
     // Restrict login to authorized admin email only

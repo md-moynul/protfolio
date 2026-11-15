@@ -1,19 +1,27 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { admin } from "better-auth/plugins";
+import { APIError } from "better-auth/api";
 import { client } from "@/lib/mongodb";
+import { getAdminEmail } from "@/lib/admin";
 
 const db = client.db(process.env.MONGODB_DB || "portfolio");
 
-const ADMIN_EMAIL = (
-  process.env.ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
-).trim().toLowerCase();
+const secret = process.env.BETTER_AUTH_SECRET;
+if (!secret) {
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "FATAL: BETTER_AUTH_SECRET environment variable is required in production."
+    );
+  }
+}
+
+const authSecret =
+  secret || "dev_secret_only_for_local_development_at_least_32_chars";
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  secret:
-    process.env.BETTER_AUTH_SECRET ||
-    "better_auth_default_secret_min_32_chars_long_12345",
+  secret: authSecret,
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   emailAndPassword: {
     enabled: true,
@@ -28,15 +36,24 @@ export const auth = betterAuth({
     user: {
       create: {
         before: async (user) => {
+          const adminEmail = getAdminEmail();
           const userEmail = user.email?.trim().toLowerCase();
+          const allowSignup = process.env.ALLOW_ADMIN_SIGNUP === "true";
 
-          // Only the exact ADMIN_EMAIL is permitted to be admin
-          const role = userEmail === ADMIN_EMAIL ? "admin" : "user";
+          // Reject every sign-up unless BOTH are true:
+          // process.env.ALLOW_ADMIN_SIGNUP === "true" AND the email equals ADMIN_EMAIL
+          if (!allowSignup || !adminEmail || userEmail !== adminEmail) {
+            throw new APIError("FORBIDDEN", {
+              message:
+                "Sign-up is currently disabled. Contact administrator for access.",
+            });
+          }
 
+          // Never create any other role
           return {
             data: {
               ...user,
-              role,
+              role: "admin",
             },
           };
         },

@@ -29,7 +29,7 @@
       "Same-day Local Delivery",
       "Insurance Integration"
     ],
-    "img": "/images/smart-health.png"
+    "img": "/images/smart-health.webp"
   },
   {
     "id": 1,
@@ -61,7 +61,7 @@
       "Inventory Management",
       "Admin Dashboard"
     ],
-    "img": "/images/pizzapoint.png"
+    "img": "/images/pizzapoint.webp"
   },
   {
     "id": 2,
@@ -96,7 +96,7 @@
       "Personal Dashboard",
       "Like & Favorite System"
     ],
-    "img": "/images/recipely.png"
+    "img": "/images/recipely.webp"
   },
   {
     "id": 3,
@@ -131,7 +131,7 @@
       "Secure Auth (Better Auth)",
       "Digital Receipts"
     ],
-    "img": "/images/sportnest.png"
+    "img": "/images/sportnest.webp"
   },
   {
     "id": 4,
@@ -165,7 +165,7 @@
       "Real-time Availability",
       "Better Auth Security"
     ],
-    "img": "/images/kurbani-hat.png"
+    "img": "/images/kurbani-hat.webp"
   },
   {
     "id": 5,
@@ -195,7 +195,7 @@
       "Category Filters",
       "Responsive UI"
     ],
-    "img": "/dragon-news.png"
+    "img": "/images/dragon-news.webp"
   },
   {
     "id": 6,
@@ -229,7 +229,7 @@
       "Theme Switching",
       "Contact Detail Management"
     ],
-    "img": "/images/keenkeper.png"
+    "img": "/images/keenkeper.webp"
   },
   {
     "id": 7,
@@ -260,7 +260,7 @@
       "Vite Performance",
       "Responsive Grid"
     ],
-    "img": "/images/hero-io.png"
+    "img": "/images/hero-io.webp"
   },
   {
     "id": 8,
@@ -289,7 +289,7 @@
       "Personal Wishlist",
       "Responsive Layout"
     ],
-    "img": "/images/book-vibe.png"
+    "img": "/images/book-vibe.webp"
   },
   {
     "id": 9,
@@ -321,7 +321,7 @@
       "Duplicate Prevention Alerts",
       "Responsive Design"
     ],
-    "img": "/images/digtools.png"
+    "img": "/images/digtools.webp"
   },
   {
     "id": 10,
@@ -351,7 +351,7 @@
       "Project Overview",
       "Developer Tools"
     ],
-    "img": "/images/issue-tracker.png"
+    "img": "/images/issue-tracker.webp"
   },
   {
     "id": 11,
@@ -380,7 +380,7 @@
       "Eco-friendly Mission",
       "Detailed Plant Specs"
     ],
-    "img": "/images/tree-store.png"
+    "img": "/images/tree-store.webp"
   },
   {
     "id": 12,
@@ -409,7 +409,7 @@
       "Simple Auth UI",
       "Step-by-step Progression"
     ],
-    "img": "/images/english-janala.png"
+    "img": "/images/english-janala.webp"
   },
   {
     "id": 13,
@@ -439,7 +439,7 @@
       "Filter by Outcome",
       "Company Details View"
     ],
-    "img": "/images/job-tracker.png"
+    "img": "/images/job-tracker.webp"
   },
   {
     "id": 14,
@@ -468,7 +468,7 @@
       "Error Feedback System",
       "Responsive Banking UI"
     ],
-    "img": "/images/payoo-bank.png"
+    "img": "/images/payoo-bank.webp"
   },
   {
     "id": 15,
@@ -498,7 +498,7 @@
       "Newsletter Subscription",
       "Elegant Tailwind Design"
     ],
-    "img": "/images/tea-house.png"
+    "img": "/images/tea-house.webp"
   },
   {
     "id": 16,
@@ -528,7 +528,7 @@
       "Mobile-First Design",
       "Clean Hero Section"
     ],
-    "img": "/images/g3-architect.png"
+    "img": "/images/g3-architect.webp"
   },
   {
     "id": 17,
@@ -557,7 +557,7 @@
       "Global Community Metrics",
       "Topic Roadmaps"
     ],
-    "img": "/images/techWave.png"
+    "img": "/images/techWave.webp"
   },
   {
     "id": 18,
@@ -586,6 +586,6 @@
       "Search & Navigation",
       "Scalable Data Storage"
     ],
-    "img": "/images/knowledge-vault.png"
+    "img": "/images/knowledge-vault.webp"
   }
 ]

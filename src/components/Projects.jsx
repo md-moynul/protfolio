@@ -340,74 +340,11 @@ const Pagination = ({ current, total, onChange }) => {
   );
 };
 
-/* ─── Skeleton Card ──────────────────────────────────────────────────────── */
-const ProjectSkeletonCard = () => (
-  <div className="glass-card rounded-2xl overflow-hidden flex flex-col animate-pulse">
-    <div className="h-56 bg-gray-200 dark:bg-white/5 w-full" />
-    <div className="p-6 flex flex-col flex-grow gap-4">
-      <div className="flex gap-2">
-        <div className="h-5 w-24 bg-gray-200 dark:bg-white/10 rounded-full" />
-        <div className="h-5 w-16 bg-gray-200 dark:bg-white/10 rounded-full" />
-      </div>
-      <div className="h-7 w-3/4 bg-gray-200 dark:bg-white/10 rounded-md" />
-      <div className="space-y-2">
-        <div className="h-4 w-full bg-gray-200 dark:bg-white/5 rounded" />
-        <div className="h-4 w-5/6 bg-gray-200 dark:bg-white/5 rounded" />
-        <div className="h-4 w-2/3 bg-gray-200 dark:bg-white/5 rounded" />
-      </div>
-      <div className="flex gap-3 mt-auto pt-4">
-        <div className="h-8 w-28 bg-gray-200 dark:bg-white/10 rounded-full" />
-        <div className="h-8 w-24 bg-gray-200 dark:bg-white/5 rounded-full" />
-      </div>
-    </div>
-  </div>
-);
-
 /* ─── Main Component ─────────────────────────────────────────────────────── */
-const Projects = () => {
-  const [projects, setProjects] = useState([]);
+const Projects = ({ initialProjects = [] }) => {
+  const [projects] = useState(initialProjects);
   const [page, setPage] = useState(1);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    fetch("/api/projects")
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then((data) => {
-        if (isMounted) {
-          setProjects(data);
-          setIsLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.warn("Failed to load projects from /api/projects, falling back to static json:", err);
-        fetch("/data/projects.json")
-          .then((res) => res.json())
-          .then((fallbackData) => {
-            if (isMounted) {
-              setProjects(fallbackData);
-              setIsLoading(false);
-            }
-          })
-          .catch((fallbackErr) => {
-            console.error("Failed to load fallback projects:", fallbackErr);
-            if (isMounted) {
-              setError("Failed to load projects.");
-              setIsLoading(false);
-            }
-          });
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
   const visibleProjects = projects.slice(
@@ -434,31 +371,19 @@ const Projects = () => {
               A collection of full-stack web applications built with clean code and thoughtful design.
             </p>
           </div>
-          <div className="hidden md:flex items-center gap-2 text-gray-400 dark:text-zinc-500 text-xs font-bold tracking-widest">
-            {isLoading ? (
-              <span className="animate-pulse">LOADING...</span>
-            ) : (
-              <>
-                <span>
-                  {projects.length > 0 ? (page - 1) * PROJECTS_PER_PAGE + 1 : 0}–{Math.min(page * PROJECTS_PER_PAGE, projects.length)}
-                </span>
-                <span className="opacity-40">/</span>
-                <span>{projects.length} PROJECTS</span>
-              </>
-            )}
+          <div className="hidden md:flex items-center gap-2 text-gray-600 dark:text-zinc-400 text-xs font-bold tracking-widest">
+            <span>
+              {projects.length > 0 ? (page - 1) * PROJECTS_PER_PAGE + 1 : 0}–{Math.min(page * PROJECTS_PER_PAGE, projects.length)}
+            </span>
+            <span className="opacity-40">/</span>
+            <span>{projects.length} PROJECTS</span>
           </div>
         </motion.div>
 
         {/* Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: PROJECTS_PER_PAGE }).map((_, i) => (
-              <ProjectSkeletonCard key={i} />
-            ))}
-          </div>
-        ) : error && projects.length === 0 ? (
+        {projects.length === 0 ? (
           <div className="text-center py-16 text-gray-500 dark:text-zinc-400">
-            <p>{error}</p>
+            <p>No projects available right now.</p>
           </div>
         ) : (
           <motion.div
@@ -480,7 +405,7 @@ const Projects = () => {
         )}
 
         {/* Pagination */}
-        {!isLoading && <Pagination current={page} total={totalPages} onChange={handlePageChange} />}
+        <Pagination current={page} total={totalPages} onChange={handlePageChange} />
       </section>
 
       {/* Modal */}

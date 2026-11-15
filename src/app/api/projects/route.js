@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { promises as fs } from "fs";
 import path from "path";
+import { isAdminSession } from "@/lib/admin";
 
 async function getLocalProjects() {
   try {
@@ -18,20 +19,18 @@ async function getLocalProjects() {
 export async function GET() {
   try {
     const collection = await getProjectsCollection();
-    let projects = await collection.find({}).sort({ id: 1 }).toArray();
+    const projects = await collection.find({}).sort({ id: 1 }).toArray();
 
-    // Auto-seed if the collection in MongoDB is currently empty
+    // If MongoDB collection is empty, fall back to projects.json without writing to DB
     if (!projects || projects.length === 0) {
       const localProjects = await getLocalProjects();
-      if (localProjects.length > 0) {
-        // Remove explicit string IDs if not desired, or insert as is
-        const projectsToInsert = localProjects.map((p) => ({
-          ...p,
-          createdAt: new Date(),
-        }));
-        await collection.insertMany(projectsToInsert);
-        projects = await collection.find({}).sort({ id: 1 }).toArray();
-      }
+      return Response.json(localProjects, {
+        status: 200,
+        headers: {
+          "X-Data-Source": "fallback-local",
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        },
+      });
     }
 
     // Format _id as string for standard JSON serialization
@@ -48,7 +47,10 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.warn("MongoDB connection failed or unavailable, falling back to local projects.json:", error?.message);
+    console.warn(
+      "MongoDB connection failed or unavailable, falling back to local projects.json:",
+      error?.message
+    );
     const fallbackProjects = await getLocalProjects();
     return Response.json(fallbackProjects, {
       status: 200,
@@ -61,19 +63,12 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    // Check admin authorization
+    // Check admin authorization via shared helper
     const session = await auth.api.getSession({
       headers: await headers(),
     });
 
-    const adminEmail = (
-      process.env.ADMIN_EMAIL || "mdmoynulislam.dev@gmail.com"
-    ).trim().toLowerCase();
-    const isAdmin =
-      session?.user?.role === "admin" &&
-      session?.user?.email?.toLowerCase() === adminEmail;
-
-    if (!isAdmin) {
+    if (!isAdminSession(session)) {
       return Response.json(
         { error: "Forbidden: Only administrators can add projects." },
         { status: 403 }
@@ -82,15 +77,20 @@ export async function POST(request) {
 
     const body = await request.json();
 
-    if (!body || !body.title) {
+    if (!body || typeof body !== "object") {
+      return Response.json({ error: "Invalid request body" }, { status: 400 });
+    }
+
+    const title = typeof body.title === "string" ? body.title.trim() : "";
+    if (!title) {
       return Response.json({ error: "Title is required" }, { status: 400 });
     }
 
     const collection = await getProjectsCollection();
 
-    // Determine next id
+    // Determine next integer id
     let nextId = body.id;
-    if (nextId === undefined || nextId === null) {
+    if (nextId === undefined || nextId === null || isNaN(Number(nextId))) {
       const highestProject = await collection
         .find({ id: { $exists: true } })
         .sort({ id: -1 })
@@ -100,23 +100,33 @@ export async function POST(request) {
         highestProject.length > 0 && typeof highestProject[0].id === "number"
           ? highestProject[0].id + 1
           : Date.now();
+    } else {
+      nextId = Number(nextId);
     }
+
+    const sanitizeString = (val) => (typeof val === "string" ? val.trim() : "");
+    const sanitizeArray = (val) =>
+      Array.isArray(val)
+        ? val
+            .map((item) => (typeof item === "string" ? item.trim() : String(item)))
+            .filter((item) => item.length > 0)
+        : [];
 
     const newProject = {
       id: nextId,
-      title: body.title,
-      tags: Array.isArray(body.tags) ? body.tags : [],
-      teacstack: Array.isArray(body.teacstack) ? body.teacstack : [],
-      desc: body.desc || "",
-      longDesc: body.longDesc || "",
-      starting_date: body.starting_date || "",
-      finished_date: body.finished_date || "",
-      link: body.link || "",
-      githubFrontend: body.githubFrontend || "",
-      githubBackend: body.githubBackend || "",
-      github: body.github || "",
-      features: Array.isArray(body.features) ? body.features : [],
-      img: body.img || "/images/smart-health.png",
+      title,
+      tags: sanitizeArray(body.tags),
+      teacstack: sanitizeArray(body.teacstack),
+      desc: sanitizeString(body.desc),
+      longDesc: sanitizeString(body.longDesc),
+      starting_date: sanitizeString(body.starting_date),
+      finished_date: sanitizeString(body.finished_date),
+      link: sanitizeString(body.link),
+      githubFrontend: sanitizeString(body.githubFrontend),
+      githubBackend: sanitizeString(body.githubBackend),
+      github: sanitizeString(body.github),
+      features: sanitizeArray(body.features),
+      img: sanitizeString(body.img) || "/images/smart-health.webp",
       createdAt: new Date(),
     };
 
@@ -140,4 +150,3 @@ export async function POST(request) {
     );
   }
 }
-

@@ -163,7 +163,7 @@ const Hero = () => {
             {/* Profile blob */}
             <div className="absolute inset-0 border border-[#2D8CFF]/30 rounded-[30%_70%_70%_30%/_30%_30%_70%_70%] overflow-hidden animate-blob shadow-[0_0_60px_rgba(45,140,255,0.18)]">
               <Image
-                src="/moynul.png"
+                src="/moynul.webp"
                 alt="Md. Moynul Islam"
                 fill
                 sizes="(max-width: 768px) 70vw, 400px"
