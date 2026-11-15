@@ -1,10 +1,8 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { admin } from "better-auth/plugins";
-import { MongoClient } from "mongodb";
+import { client } from "@/lib/mongodb";
 
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
-const client = new MongoClient(uri);
 const db = client.db(process.env.MONGODB_DB || "portfolio");
 
 const ADMIN_EMAIL = (
@@ -32,17 +30,13 @@ export const auth = betterAuth({
         before: async (user) => {
           const userEmail = user.email?.trim().toLowerCase();
 
-          // Disallow any unauthorized email registration
-          if (userEmail !== ADMIN_EMAIL) {
-            throw new Error(
-              "Registration is closed. Only the portfolio administrator is authorized."
-            );
-          }
+          // Only the exact ADMIN_EMAIL is permitted to be admin
+          const role = userEmail === ADMIN_EMAIL ? "admin" : "user";
 
           return {
             data: {
               ...user,
-              role: "admin",
+              role,
             },
           };
         },
