@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
   SiHtml5,
@@ -130,23 +130,31 @@ const categories = [
   },
 ];
 
-/* ── Individual Tech Card ── */
+/* Continuous smoothstep proximity calculator (zero jumps, C1 smooth) */
+const getProximity = (p, centerPoint, radius = 0.09) => {
+  const dist = Math.abs(p - centerPoint);
+  if (dist >= radius) return 0;
+  const rawT = 1 - dist / radius;
+  return rawT * rawT * (3 - 2 * rawT);
+};
+
+/* ── Individual Tech Card (Lightweight micro-interactions) ── */
 const TechCard = ({ skill, accentColor }) => {
   const brandColor = skill.color !== "inherit" ? skill.color : accentColor;
 
   return (
     <motion.div
       whileHover={{
-        y: -4,
-        scale: 1.025,
-        transition: { type: "spring", stiffness: 400, damping: 18 },
+        y: -3,
+        scale: 1.015,
+        transition: { duration: 0.2, ease: "easeOut" },
       }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex items-center gap-3.5 p-3.5 md:p-4 rounded-xl bg-gray-50/70 dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/5 hover:border-[#2D8CFF]/40 dark:hover:border-[#2D8CFF]/40 hover:bg-white dark:hover:bg-white/[0.06] hover:shadow-[0_12px_24px_-8px_rgba(45,140,255,0.18)] transition-all duration-300 overflow-hidden cursor-default"
+      className="group relative flex items-center gap-3.5 p-3.5 md:p-4 rounded-xl bg-gray-50/70 dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/5 hover:border-[#2D8CFF]/40 dark:hover:border-[#2D8CFF]/40 hover:bg-white dark:hover:bg-white/[0.06] hover:shadow-[0_8px_20px_-6px_rgba(45,140,255,0.16)] transition-[background-color,border-color,box-shadow] duration-200 overflow-hidden cursor-default"
     >
       {/* Subtle brand ambient glow on hover */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-xl"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none rounded-xl"
         style={{
           background: `radial-gradient(circle at 25% 50%, ${brandColor}14, transparent 70%)`,
         }}
@@ -154,15 +162,15 @@ const TechCard = ({ skill, accentColor }) => {
 
       {/* Dynamic border tint on hover */}
       <div
-        className="absolute inset-0 rounded-xl border border-transparent group-hover:border-current opacity-0 group-hover:opacity-30 transition-all duration-300 pointer-events-none"
+        className="absolute inset-0 rounded-xl border border-transparent group-hover:border-current opacity-0 group-hover:opacity-30 transition-opacity duration-200 pointer-events-none"
         style={{ color: brandColor }}
       />
 
-      {/* Icon Container with interactive micro-bounce */}
+      {/* Icon Container with lightweight micro-interaction */}
       <motion.div
-        whileHover={{ rotate: [0, -8, 8, 0], scale: 1.15 }}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-white dark:bg-zinc-900/80 border border-gray-200/60 dark:border-white/10 shadow-sm group-hover:border-[#2D8CFF]/30 transition-all duration-300 relative z-10"
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-white dark:bg-zinc-900/80 border border-gray-200/60 dark:border-white/10 shadow-sm group-hover:border-[#2D8CFF]/30 transition-[border-color] duration-200 relative z-10"
       >
         <skill.Icon
           className={`text-xl flex-shrink-0 ${skill.className || ""}`}
@@ -172,11 +180,11 @@ const TechCard = ({ skill, accentColor }) => {
 
       {/* Text info */}
       <div className="flex flex-col min-w-0 relative z-10">
-        <span className="text-sm font-bold text-gray-900 dark:text-white truncate leading-tight group-hover:text-[#2D8CFF] dark:group-hover:text-[#2D8CFF] transition-colors duration-300">
+        <span className="text-sm font-bold text-gray-900 dark:text-white truncate leading-tight group-hover:text-[#2D8CFF] dark:group-hover:text-[#2D8CFF] transition-colors duration-200">
           {skill.label}
         </span>
         {skill.subtitle && (
-          <span className="text-[11px] font-medium text-gray-500 dark:text-zinc-400 truncate leading-tight mt-1 group-hover:text-gray-700 dark:group-hover:text-zinc-300 transition-colors duration-300">
+          <span className="text-[11px] font-medium text-gray-500 dark:text-zinc-400 truncate leading-tight mt-1 group-hover:text-gray-700 dark:group-hover:text-zinc-300 transition-colors duration-200">
             {skill.subtitle}
           </span>
         )}
@@ -185,81 +193,53 @@ const TechCard = ({ skill, accentColor }) => {
   );
 };
 
-/* ── Individual Category Node (Scroll-Linked Animation & Center Stage Focus) ── */
-const CategoryNode = ({ category, index, total, smoothProgress, progressPoints }) => {
+/* ── Individual Category Node (Continuous Proximity Transformations) ── */
+const CategoryNode = ({
+  category,
+  index,
+  total,
+  activeProgress,
+  progressPoints,
+  prefersReducedMotion,
+}) => {
   const centerPoint = progressPoints[index];
 
-  // Opacity: guaranteed visibility for all 7 nodes across scroll
-  const opacity = useTransform(smoothProgress, (p) => {
-    // First item is immediately visible when entering the section
-    if (index === 0) {
-      if (p <= centerPoint + 0.08) return 1.0;
-      return 0.85;
-    }
-
-    const enterStart = Math.max(0, centerPoint - 0.12);
-    const enterEnd = centerPoint;
-
-    // Upcoming items have subtle visibility along timeline so there are never blank gaps
-    if (p < enterStart) return 0.2;
-
-    // Smooth fade into active focus as it enters center stage
-    if (p <= enterEnd) {
-      const t = (p - enterStart) / (enterEnd - enterStart);
-      return 0.2 + 0.8 * t;
-    }
-
-    // Once passed center, it remains fully visible
-    if (Math.abs(p - centerPoint) < 0.07) return 1.0;
-    return 0.85;
+  // Opacity: Continuous smooth falloff, baseline 0.45 for non-active items so there are no blank gaps
+  const opacity = useTransform(activeProgress, (p) => {
+    const proximity = getProximity(p, centerPoint, 0.09);
+    return 0.45 + 0.55 * proximity;
   });
 
-  // Scale: subtle focal snap at center
-  const scale = useTransform(smoothProgress, (p) => {
-    const dist = Math.abs(p - centerPoint);
-    if (dist < 0.07) {
-      const t = 1 - dist / 0.07;
-      return 1 + 0.015 * t;
-    }
-    return 1;
+  // Scale: Continuous micro-elevation at center (suppressed under prefers-reduced-motion)
+  const scale = useTransform(activeProgress, (p) => {
+    if (prefersReducedMotion) return 1;
+    const proximity = getProximity(p, centerPoint, 0.09);
+    return 1 + 0.018 * proximity;
   });
 
-  // Horizontal connector line extension
-  const connectorScaleX = useTransform(smoothProgress, (p) => {
-    if (index === 0) return 1;
-    const enterStart = Math.max(0, centerPoint - 0.12);
-    const enterEnd = centerPoint;
-    if (p < enterStart) return 0.25;
-    if (p >= enterEnd) return 1;
-    const t = (p - enterStart) / (enterEnd - enterStart);
-    return 0.25 + 0.75 * t;
+  // Horizontal connector line extension: Continuous 0.4 -> 1.0 based on proximity
+  const connectorScaleX = useTransform(activeProgress, (p) => {
+    const proximity = getProximity(p, centerPoint, 0.09);
+    return 0.4 + 0.6 * proximity;
   });
 
-  // Timeline node pulse & scale
-  const nodeScale = useTransform(smoothProgress, (p) => {
-    if (index === 0) return 1;
-    const enterStart = Math.max(0, centerPoint - 0.12);
-    const enterEnd = centerPoint;
-    if (p < enterStart) return 0.65;
-    if (p >= enterEnd) return 1;
-    const t = (p - enterStart) / (enterEnd - enterStart);
-    return 0.65 + 0.35 * t;
+  // Timeline node marker scale: Continuous 0.75 -> 1.0 based on proximity
+  const nodeScale = useTransform(activeProgress, (p) => {
+    if (prefersReducedMotion) return 1;
+    const proximity = getProximity(p, centerPoint, 0.09);
+    return 0.75 + 0.25 * proximity;
   });
 
-  // GPU-Friendly Active Ambient Glow Opacity (avoids animating box-shadow directly)
-  const activeGlowOpacity = useTransform(smoothProgress, (p) => {
-    const dist = Math.abs(p - centerPoint);
-    if (dist < 0.07) {
-      return 1 - dist / 0.07;
-    }
-    return 0;
+  // Active ambient glow opacity: Continuous 0 -> 1.0 based on proximity
+  const activeGlowOpacity = useTransform(activeProgress, (p) => {
+    return getProximity(p, centerPoint, 0.09);
   });
 
   return (
     <motion.div
       data-category-item="true"
       style={{ opacity, scale }}
-      className="relative will-change-transform"
+      className="relative"
     >
       {/* Horizontal connector line bridging the timeline node to the card */}
       <motion.div
@@ -272,25 +252,20 @@ const CategoryNode = ({ category, index, total, smoothProgress, progressPoints }
         className="absolute -left-6 sm:-left-8 top-[38px] md:top-[46px] w-6 sm:w-8 h-[1.5px] -translate-y-1/2 pointer-events-none z-10"
       />
 
-      {/* Concentric glowing timeline node with ambient pulse */}
+      {/* Concentric glowing timeline node */}
       <motion.div
         style={{ scale: nodeScale }}
         className="absolute -left-6 sm:-left-8 top-[38px] md:top-[46px] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-20"
       >
+        {/* Hardware-accelerated CSS keyframe pulse: only visible when active */}
         <motion.div
-          animate={{
-            scale: [1, 1.8, 1],
-            opacity: [0.35, 0, 0.35],
-          }}
-          transition={{
-            duration: 2.8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute w-5 h-5 rounded-full pointer-events-none"
           style={{
+            opacity: activeGlowOpacity,
             backgroundColor: category.dotColor,
           }}
+          className={`absolute w-5 h-5 rounded-full pointer-events-none ${
+            prefersReducedMotion ? "hidden" : "timeline-pulse"
+          }`}
         />
         <div
           className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-white dark:bg-[#12131A] shadow-md relative z-10"
@@ -307,7 +282,7 @@ const CategoryNode = ({ category, index, total, smoothProgress, progressPoints }
       </motion.div>
 
       {/* Parent Category Container */}
-      <div className="glass-card p-5 sm:p-6 md:p-8 rounded-2xl relative overflow-hidden transition-all duration-300">
+      <div className="glass-card p-5 sm:p-6 md:p-8 rounded-2xl relative overflow-hidden transition-[border-color,box-shadow] duration-300">
         {/* GPU-Friendly Active Ambient Glow & Border Overlay */}
         <motion.div
           style={{
@@ -368,7 +343,7 @@ const Skills = () => {
   const listRef = useRef(null);
   const viewportRef = useRef(null);
 
-  // 7 evenly distributed checkpoints along the pinned scroll track
+  // 7 evenly distributed checkpoints along the pinned 520vh scroll track
   const progressPoints = [0.06, 0.20, 0.35, 0.50, 0.65, 0.79, 0.93];
 
   // Estimated initial offsets to prevent any flicker before measurement
@@ -380,16 +355,46 @@ const Skills = () => {
     offset: ["start start", "end end"],
   });
 
-  // Fast, responsive momentum smoothing with snappy spring physics
+  // SSR-safe detection for touch/mobile devices and prefers-reduced-motion
+  const [useDirectScroll, setUseDirectScroll] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const coarseQuery = window.matchMedia("(pointer: coarse)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updateMedia = () => {
+      setUseDirectScroll(coarseQuery.matches || motionQuery.matches);
+      setPrefersReducedMotion(motionQuery.matches);
+    };
+
+    updateMedia();
+
+    coarseQuery.addEventListener("change", updateMedia);
+    motionQuery.addEventListener("change", updateMedia);
+    return () => {
+      coarseQuery.removeEventListener("change", updateMedia);
+      motionQuery.removeEventListener("change", updateMedia);
+    };
+  }, []);
+
+  // Softer, well-damped spring physics for desktop mouse/trackpad
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 180,
-    damping: 24,
-    mass: 0.5,
-    restDelta: 0.001,
+    stiffness: 100,
+    damping: 30,
+    mass: 0.8,
+    restDelta: 0.0005,
   });
 
-  // Measure exact pixel offsets of each category to achieve 100% accurate center alignment
+  // On touch/mobile devices or reduced-motion, bypass spring and use scroll directly
+  const activeProgress = useDirectScroll ? scrollYProgress : smoothProgress;
+
+  // Measurement stability using ResizeObserver and document.fonts.ready
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const updatePositions = () => {
       if (!viewportRef.current || !listRef.current) return;
       const viewportRect = viewportRef.current.getBoundingClientRect();
@@ -401,43 +406,70 @@ const Skills = () => {
           const elTop = el.offsetTop;
           const elHeight = el.offsetHeight;
           const itemCenterInList = elTop + elHeight / 2;
-          return Math.round(viewportCenter - itemCenterInList);
+          const target = Math.round(viewportCenter - itemCenterInList);
+          return Number.isFinite(target) ? target : 0;
         });
-        targetsRef.current = newTargets;
+        if (newTargets.every(Number.isFinite)) {
+          targetsRef.current = newTargets;
+        }
       }
     };
 
     updatePositions();
-    const timer1 = setTimeout(updatePositions, 100);
-    const timer2 = setTimeout(updatePositions, 400);
-    const timer3 = setTimeout(updatePositions, 1000);
-    window.addEventListener("resize", updatePositions);
+
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(updatePositions);
+    }
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        updatePositions();
+      });
+      if (viewportRef.current) resizeObserver.observe(viewportRef.current);
+      if (listRef.current) resizeObserver.observe(listRef.current);
+    }
+
+    window.addEventListener("resize", updatePositions, { passive: true });
 
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
       window.removeEventListener("resize", updatePositions);
+      if (resizeObserver) resizeObserver.disconnect();
     };
   }, []);
 
-  // Continuous linear translation mapping driven by smoothProgress (natural deceleration via spring)
-  const listY = useTransform(smoothProgress, (progress) => {
+  // listY with hold/dwell zones around checkpoints and smoothstep transitions between holds
+  const listY = useTransform(activeProgress, (progress) => {
     const targets = targetsRef.current;
     if (!targets || targets.length !== categories.length) return 0;
 
     const points = progressPoints;
+    const holdHalf = 0.025; // Dwell/hold window around each category center
 
-    if (progress <= points[0]) return targets[0];
-    if (progress >= points[points.length - 1]) return targets[targets.length - 1];
+    // Initial hold zone
+    if (progress <= points[0] + holdHalf) return targets[0];
+    // Final hold zone
+    if (progress >= points[points.length - 1] - holdHalf) {
+      return targets[targets.length - 1];
+    }
 
     for (let i = 0; i < points.length - 1; i++) {
-      if (progress >= points[i] && progress <= points[i + 1]) {
-        const t = (progress - points[i]) / (points[i + 1] - points[i]);
-        return targets[i] + (targets[i + 1] - targets[i]) * t;
+      const holdEnd = points[i] + holdHalf;
+      const nextHoldStart = points[i + 1] - holdHalf;
+
+      if (progress <= holdEnd) {
+        return targets[i];
+      }
+
+      if (progress < nextHoldStart) {
+        const t = (progress - holdEnd) / (nextHoldStart - holdEnd);
+        // Smoothstep cubic easing between hold zones
+        const smoothT = t * t * (3 - 2 * t);
+        return targets[i] + (targets[i + 1] - targets[i]) * smoothT;
       }
     }
-    return targets[0];
+
+    return targets[targets.length - 1];
   });
 
   return (
@@ -445,14 +477,14 @@ const Skills = () => {
       ref={containerRef}
       id="skills"
       className="relative bg-transparent"
-      style={{ height: "320vh" }}
+      style={{ height: "520vh" }}
     >
-      {/* Sticky Pinned Viewport Container (stays pinned at top: 0, height: 100vh) */}
+      {/* Sticky Pinned Viewport Container (stays pinned at top: 0, 100dvh avoids mobile address-bar jumps) */}
       <div
         style={{
           position: "sticky",
           top: 0,
-          height: "100vh",
+          height: "100dvh",
           width: "100%",
         }}
         className="flex flex-col justify-between py-6 sm:py-8 md:py-10 overflow-hidden z-10"
@@ -460,7 +492,7 @@ const Skills = () => {
         {/* Subtle Top Scroll Progress Indicator */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gray-200/40 dark:bg-white/5 z-30">
           <motion.div
-            style={{ scaleX: smoothProgress, originX: 0 }}
+            style={{ scaleX: activeProgress, originX: 0 }}
             className="h-full bg-[#2D8CFF]"
           />
         </div>
@@ -477,17 +509,17 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Center Stage Viewport (Smooth mask & center alignment) */}
+        {/* Center Stage Viewport with Top & Bottom Static Gradient Overlays (GPU-friendly alternative to maskImage) */}
         <div
           ref={viewportRef}
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%)",
-          }}
           className="flex-1 w-full max-w-5xl mx-auto pl-8 sm:pl-12 pr-4 sm:pr-6 relative overflow-hidden flex flex-col justify-start"
         >
+          {/* Static Top Fade Gradient */}
+          <div className="absolute top-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-b from-white dark:from-[#0A0A0B] to-transparent pointer-events-none z-30" />
+
+          {/* Static Bottom Fade Gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-gradient-to-t from-white dark:from-[#0A0A0B] to-transparent pointer-events-none z-30" />
+
           <motion.div
             ref={listRef}
             style={{ y: listY }}
@@ -499,8 +531,9 @@ const Skills = () => {
                 category={category}
                 index={index}
                 total={categories.length}
-                smoothProgress={smoothProgress}
+                activeProgress={activeProgress}
                 progressPoints={progressPoints}
+                prefersReducedMotion={prefersReducedMotion}
               />
             ))}
           </motion.div>
