@@ -13,7 +13,7 @@ import {
   FiGlobe,
 } from "react-icons/fi";
 import { FaGraduationCap, FaRocket } from "react-icons/fa";
-import { currentYear, degree, institute } from "@/data/profile";
+import { currentYear, degree, institute, phone, phoneRaw } from "@/data/profile";
 
 const About = () => {
   const [time, setTime] = useState("");
@@ -60,7 +60,7 @@ const About = () => {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
             <div className="flex flex-col">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-gray-400 dark:text-zinc-500">
+              <span className="text-xs uppercase font-bold tracking-widest text-gray-600 dark:text-zinc-300">
                 Local Time (BST / UTC+6)
               </span>
               <span className="text-sm font-mono font-bold text-gray-900 dark:text-white">
@@ -76,13 +76,13 @@ const About = () => {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6"
         >
 
           {/* ── Bio Card ── */}
           <motion.div
             variants={fadeInUp}
-            className="lg:col-span-8 glass-card p-6 md:p-10 rounded-3xl flex flex-col justify-between gap-8"
+            className="md:col-span-2 lg:col-span-8 glass-card p-6 md:p-10 rounded-3xl flex flex-col justify-between gap-8"
           >
             <div className="flex flex-col gap-5">
               <p className="text-body-lg text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
@@ -157,7 +157,7 @@ const About = () => {
                   <span className="text-xl font-black text-primary leading-none">
                     {value}
                   </span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mt-1.5 font-bold">
+                  <span className="text-xs uppercase tracking-[0.2em] text-gray-600 dark:text-zinc-300 mt-1.5 font-bold">
                     {label}
                   </span>
                 </motion.div>
@@ -168,7 +168,7 @@ const About = () => {
           {/* ── Location & Contact Card ── */}
           <motion.div
             variants={fadeInUp}
-            className="lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center text-center gap-4 group"
+            className="md:col-span-1 lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center text-center gap-4 group"
           >
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
               <FiMapPin className="text-3xl" />
@@ -177,17 +177,17 @@ const About = () => {
               <h3 className="font-bold text-gray-900 dark:text-white text-xl">
                 Location & Contact
               </h3>
-              <p className="text-gray-500 dark:text-zinc-500 text-sm mt-1">
+              <p className="text-gray-600 dark:text-zinc-300 text-sm mt-1">
                 Rangpur, Bangladesh
               </p>
               <a
-                href="tel:+8801746568176"
+                href={`tel:${phoneRaw}`}
                 className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#2D8CFF] hover:underline mt-2 bg-[#2D8CFF]/10 px-3 py-1 rounded-full border border-[#2D8CFF]/20"
               >
                 <FiPhone className="text-xs" />
-                +880 1746-568176
+                {phone}
               </a>
-              <p className="text-[11px] font-mono text-gray-400 dark:text-zinc-600 mt-2 tracking-widest uppercase">
+              <p className="text-xs font-mono text-gray-600 dark:text-zinc-300 mt-2 tracking-widest uppercase">
                 UTC +6 · Remote Ready
               </p>
             </div>
@@ -201,7 +201,7 @@ const About = () => {
           {/* ── Philosophy Card ── */}
           <motion.div
             variants={fadeInUp}
-            className="lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-4"
+            className="md:col-span-1 lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-4"
           >
             <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
               <FiTerminal className="text-2xl" />
@@ -221,7 +221,7 @@ const About = () => {
           {/* ── Current Focus Card ── */}
           <motion.div
             variants={fadeInUp}
-            className="lg:col-span-8 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-5"
+            className="md:col-span-2 lg:col-span-8 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-5"
           >
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -245,43 +245,6 @@ const About = () => {
                   <FiArrowRight className="text-primary text-xl flex-shrink-0" />
                   {text}
                 </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* ── Tech Stack Glimpse Card ── */}
-          <motion.div
-            variants={fadeInUp}
-            className="lg:col-span-12 glass-card p-6 md:p-8 rounded-3xl"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-primary font-label-caps mb-1">
-                  Core Stack
-                </p>
-                <h3 className="font-bold text-gray-900 dark:text-white text-xl">
-                  Tools I work with daily
-                </h3>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "MongoDB",
-                "Express.js",
-                "React",
-                "Node.js",
-                "Next.js",
-                "Tailwind CSS",
-                "Framer Motion",
-                "REST APIs",
-                "Git",
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-zinc-400 bg-gray-50 dark:bg-zinc-900 hover:border-primary/50 hover:text-primary transition-colors duration-200"
-                >
-                  {tech}
-                </span>
               ))}
             </div>
           </motion.div>

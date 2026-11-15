@@ -81,7 +81,7 @@ const ProjectModal = ({ project, onClose }) => {
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-3">
                 {(project.starting_date || project.finished_date) && (
-                  <span className="text-[11px] font-semibold text-gray-500 dark:text-zinc-400 flex items-center gap-1.5 bg-gray-100 dark:bg-white/5 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10">
+                  <span className="text-xs font-semibold text-gray-600 dark:text-zinc-300 flex items-center gap-1.5 bg-gray-100 dark:bg-white/5 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10">
                     <FiCalendar className="text-xs text-[#2D8CFF]" />
                     {project.starting_date} — {project.finished_date || "Present"}
                   </span>
@@ -89,7 +89,7 @@ const ProjectModal = ({ project, onClose }) => {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-[10px] font-bold tracking-wider rounded-full uppercase bg-[#2D8CFF]/10 text-[#2D8CFF] border border-[#2D8CFF]/20"
+                    className="px-3 py-1 text-xs font-bold tracking-wider rounded-full uppercase bg-[#2D8CFF]/10 text-[#2D8CFF] border border-[#2D8CFF]/20"
                   >
                     {tag}
                   </span>
@@ -214,7 +214,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
       {/* Date badge + Tags */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
         {(project.starting_date || project.finished_date) && (
-          <span className="text-[10px] font-bold text-gray-500 dark:text-zinc-400 flex items-center gap-1 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded border border-gray-200 dark:border-white/10">
+          <span className="text-xs font-semibold text-gray-600 dark:text-zinc-300 flex items-center gap-1 bg-gray-100 dark:bg-white/5 px-2.5 py-0.5 rounded border border-gray-200 dark:border-white/10">
             <FiCalendar className="text-xs text-[#2D8CFF]" />
             {project.starting_date} – {project.finished_date || "Present"}
           </span>
@@ -223,7 +223,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
 
       <div className="flex flex-wrap gap-2 mb-4">
         {project.tags.map((tag) => (
-          <span key={tag} className="text-[10px] font-bold tracking-[0.2em] text-[#2D8CFF]">
+          <span key={tag} className="text-xs font-bold tracking-[0.15em] text-[#2D8CFF]">
             {tag}
           </span>
         ))}

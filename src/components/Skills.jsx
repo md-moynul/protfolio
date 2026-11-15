@@ -24,6 +24,7 @@ import {
   SiJsonwebtokens,
   SiBetterauth,
   SiTypescript,
+  SiFramer,
 } from "react-icons/si";
 import {
   FiLayout,
@@ -58,6 +59,7 @@ const categories = [
     skills: [
       { Icon: SiReact, label: "React.js", subtitle: "Core Library", color: "#61DAFB" },
       { Icon: SiNextdotjs, label: "Next.js", subtitle: "App Router / SSR", color: "inherit", className: "text-gray-900 dark:text-white" },
+      { Icon: SiFramer, label: "Framer Motion", subtitle: "Animation Library", color: "inherit", className: "text-gray-900 dark:text-white" },
       { Icon: SiHtml5, label: "HTML5", subtitle: "Semantic Markup", color: "#E34F26" },
       { Icon: SiCss, label: "CSS3", subtitle: "Responsive Design", color: "#1572B6" },
     ],
@@ -185,7 +187,7 @@ const TechCard = ({ skill, accentColor }) => {
           {skill.label}
         </span>
         {skill.subtitle && (
-          <span className="text-[11px] font-medium text-gray-500 dark:text-zinc-400 truncate leading-tight mt-1 group-hover:text-gray-700 dark:group-hover:text-zinc-300 transition-colors duration-200">
+          <span className="text-xs font-medium text-gray-500 dark:text-zinc-400 truncate leading-tight mt-1 group-hover:text-gray-700 dark:group-hover:text-zinc-300 transition-colors duration-200">
             {skill.subtitle}
           </span>
         )}
@@ -206,10 +208,10 @@ const CategoryNode = ({
   const centerPoint = progressPoints[index];
   const isLast = index === total - 1;
 
-  // Opacity: Continuous smooth falloff, baseline 0.45 for non-active items so there are no blank gaps
+  // Opacity: Continuous smooth falloff, baseline 0.6 for non-active items so there are no blank gaps
   const opacity = useTransform(activeProgress, (p) => {
     const proximity = getProximity(p, centerPoint, 0.09, isLast);
-    return 0.45 + 0.55 * proximity;
+    return 0.6 + 0.4 * proximity;
   });
 
   // Scale: Continuous micro-elevation at center (suppressed under prefers-reduced-motion)

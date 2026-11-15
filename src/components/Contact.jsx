@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp } from "./Animations";
 import { FiMail, FiMapPin, FiSend, FiLoader } from "react-icons/fi";
+import { email } from "@/data/profile";
 
 const Contact = () => {
   const [formState, setFormState] = useState({
@@ -62,7 +63,7 @@ const Contact = () => {
         >
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full"></div>
           <div className="w-full lg:w-1/2 flex flex-col gap-6 relative z-10">
-            <span className="font-label-caps text-primary text-[10px] tracking-[0.2em]">Get In Touch</span>
+            <span className="font-label-caps text-primary text-xs font-bold tracking-[0.2em]">Get In Touch</span>
             <h2 className="font-display text-4xl md:text-h1 text-gray-900 dark:text-white leading-tight">Let&apos;s build something <span className="text-gradient">great together</span>.</h2>
             <p className="text-gray-600 dark:text-zinc-400 text-base md:text-body-lg text-left md:text-justify hyphens-auto">Currently available for internships, junior roles, or freelance projects. Feel free to reach out anytime.</p>
             <div className="mt-8 space-y-4">
@@ -71,8 +72,8 @@ const Contact = () => {
                   <FiMail className="text-xl" />
                 </div>
                 <div>
-                  <span className="block font-label-caps text-gray-500 dark:text-on-surface-variant text-[10px]">Email Me</span>
-                  <a href="mailto:mdoynulislam.dev@gmail.com" className="text-gray-900 dark:text-white font-bold hover:text-[#2D8CFF] transition-colors">mdoynulislam.dev@gmail.com</a>
+                  <span className="block font-label-caps text-gray-600 dark:text-zinc-300 text-xs font-semibold">Email Me</span>
+                  <a href={`mailto:${email}`} className="text-gray-900 dark:text-white font-bold hover:text-[#2D8CFF] transition-colors">{email}</a>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -80,7 +81,7 @@ const Contact = () => {
                   <FiMapPin className="text-xl" />
                 </div>
                 <div>
-                  <span className="block font-label-caps text-gray-500 dark:text-on-surface-variant text-[10px]">Location</span>
+                  <span className="block font-label-caps text-gray-600 dark:text-zinc-300 text-xs font-semibold">Location</span>
                   <span className="text-gray-900 dark:text-white font-bold">Rangpur, Bangladesh</span>
                 </div>
               </div>
@@ -89,7 +90,7 @@ const Contact = () => {
           <form className="w-full lg:w-1/2 flex flex-col gap-4 relative z-10" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <label className="font-label-caps text-[10px] text-gray-500 dark:text-zinc-500 ml-2">Name</label>
+                <label className="font-label-caps text-xs font-semibold text-gray-600 dark:text-zinc-300 ml-2">Name</label>
                 <input
                   name="name"
                   value={formState.name}
@@ -101,7 +102,7 @@ const Contact = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-label-caps text-[10px] text-gray-500 dark:text-zinc-500 ml-2">Email</label>
+                <label className="font-label-caps text-xs font-semibold text-gray-600 dark:text-zinc-300 ml-2">Email</label>
                 <input
                   name="email"
                   value={formState.email}
@@ -114,7 +115,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <label className="font-label-caps text-[10px] text-gray-500 dark:text-zinc-500 ml-2">Subject</label>
+              <label className="font-label-caps text-xs font-semibold text-gray-600 dark:text-zinc-300 ml-2">Subject</label>
               <input
                 name="subject"
                 value={formState.subject}
@@ -126,7 +127,7 @@ const Contact = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="font-label-caps text-[10px] text-gray-500 dark:text-zinc-500 ml-2">Message</label>
+              <label className="font-label-caps text-xs font-semibold text-gray-600 dark:text-zinc-300 ml-2">Message</label>
               <textarea
                 name="message"
                 value={formState.message}

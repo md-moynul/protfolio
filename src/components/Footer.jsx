@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp } from "react-icons/fa";
+import { email, phoneRaw, linkedin } from "@/data/profile";
 
 const Footer = () => (
   <footer className="relative w-full py-20 border-t border-gray-200 dark:border-white/5 bg-white dark:bg-[#0A0A0B] overflow-hidden transition-colors">
@@ -8,12 +10,14 @@ const Footer = () => (
     <div className="relative z-10 max-w-7xl mx-auto px-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-4 mb-16">
         <div className="flex flex-col gap-4">
-          <img
+          <Image
             src="/images/logo.png"
             alt="Logo"
+            width={160}
+            height={60}
             className="h-15 w-auto object-contain mb-2 dark:brightness-200 dark:contrast-125 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
           />
-          <p className="text-sm text-gray-500 dark:text-zinc-500 max-w-xs leading-relaxed">
+          <p className="text-sm text-gray-600 dark:text-zinc-400 max-w-xs leading-relaxed">
             Building modern web apps with clean code and thoughtful design.
           </p>
         </div>
@@ -22,11 +26,11 @@ const Footer = () => (
           <div className="flex gap-4">
             {[
               { icon: <FaGithub />, href: "https://github.com/md-moynul" },
-              { icon: <FaLinkedin />, href: "https://www.linkedin.com/in/md-moynul-islam47/" },
-              { icon: <FaPhone />, href: "tel:+8801746568176" },
-              { icon: <FaWhatsapp />, href: "https://wa.me/8801746568176" },
+              { icon: <FaLinkedin />, href: linkedin },
+              { icon: <FaPhone />, href: `tel:${phoneRaw}` },
+              { icon: <FaWhatsapp />, href: `https://wa.me/${phoneRaw.replace("+", "")}` },
               { icon: <FaFacebook />, href: "https://www.facebook.com/mdmoynulislam8" },
-              { icon: <FaEnvelope />, href: "mailto:mdoynulislam.dev@gmail.com" },
+              { icon: <FaEnvelope />, href: `mailto:${email}` },
             ].map((social, i) => (
               <a
                 key={i}
@@ -44,7 +48,7 @@ const Footer = () => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 {item}
               </a>
@@ -54,10 +58,10 @@ const Footer = () => (
       </div>
 
       <div className="pt-8 border-t border-gray-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-[10px] text-gray-400 dark:text-zinc-600 uppercase tracking-[0.3em] font-semibold">
+        <span className="text-xs text-gray-600 dark:text-zinc-400 uppercase tracking-[0.2em] font-semibold">
           © {new Date().getFullYear()} Md. Moynul Islam · All Rights Reserved
         </span>
-        <div className="flex items-center gap-2 text-[10px] text-gray-400 dark:text-zinc-600 uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-zinc-400 uppercase tracking-widest">
           <span>Built with</span>
           <span className="text-[#2D8CFF] font-bold">MERN STACK</span>
           <span>&</span>

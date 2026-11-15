@@ -28,8 +28,8 @@ A **MERN Stack Developer** from Rangpur, Bangladesh. I build full-stack web apps
 
 - 📞 **Phone / Call**: [+880 1746-568176](tel:+8801746568176)
 - 💬 **WhatsApp**: [Chat on WhatsApp](https://wa.me/8801746568176)
-- 📧 **Email**: [mdoynulislam.dev@gmail.com](mailto:mdoynulislam.dev@gmail.com)
-- 💼 **LinkedIn**: [Md. Moynul Islam](https://www.linkedin.com/in/md-moynul-islam47/)
+- 📧 **Email**: [mdmoynulislam.dev@gmail.com](mailto:mdmoynulislam.dev@gmail.com)
+- 💼 **LinkedIn**: [Md. Moynul Islam](https://www.linkedin.com/in/md-moynul/)
 - 🐙 **GitHub**: [@md-moynul](https://github.com/md-moynul)
 - 👤 **Facebook**: [Md Moynul Islam](https://www.facebook.com/mdmoynulislam8)
 - 📄 **Resume**: [View Resume (Google Drive)](https://drive.google.com/file/d/1YQlfdggQF5C-_IKfOABBFlRBATtcyxPD/view)

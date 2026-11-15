@@ -6,16 +6,16 @@ import Typewriter from "typewriter-effect";
 import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap } from "react-icons/fa";
 import { FiArrowDown, FiFileText, FiCode } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
-import { currentYear } from "@/data/profile";
+import { currentYear, email, phoneRaw, linkedin } from "@/data/profile";
 
 /* ── Hero ── */
 const Hero = () => {
 
   const socials = [
-    { icon: <FaLinkedin className="text-lg" />, href: "https://www.linkedin.com/in/md-moynul-islam47/", hov: "hover:text-[#0A66C2]" },
-    { icon: <FaEnvelope className="text-lg" />, href: "mailto:mdoynulislam.dev@gmail.com", hov: "hover:text-[#EA4335]" },
-    { icon: <FaPhone className="text-base" />, href: "tel:+8801746568176", hov: "hover:text-[#2D8CFF]" },
-    { icon: <FaWhatsapp className="text-lg" />, href: "https://wa.me/8801746568176", hov: "hover:text-[#25D366]" },
+    { icon: <FaLinkedin className="text-lg" />, href: linkedin, hov: "hover:text-[#0A66C2]" },
+    { icon: <FaEnvelope className="text-lg" />, href: `mailto:${email}`, hov: "hover:text-[#EA4335]" },
+    { icon: <FaPhone className="text-base" />, href: `tel:${phoneRaw}`, hov: "hover:text-[#2D8CFF]" },
+    { icon: <FaWhatsapp className="text-lg" />, href: `https://wa.me/${phoneRaw.replace("+", "")}`, hov: "hover:text-[#25D366]" },
     { icon: <FaGithub className="text-lg" />, href: "https://github.com/md-moynul", hov: "hover:text-gray-900 dark:hover:text-white" },
     { icon: <FaFacebook className="text-lg" />, href: "https://www.facebook.com/mdmoynulislam8", hov: "hover:text-[#1877F2]" },
   ];
@@ -52,7 +52,7 @@ const Hero = () => {
 
           {/* Name */}
           <div className="w-full">
-            <p className="text-gray-500 dark:text-zinc-400 text-sm font-semibold mb-2 uppercase tracking-[0.2em]">
+            <p className="text-gray-600 dark:text-zinc-300 text-sm font-semibold mb-2 uppercase tracking-[0.2em]">
               Welcome to my portfolio
             </p>
             <h1 className="text-5xl md:text-8xl font-bold text-gray-900 dark:text-white tracking-tight leading-[1.1] md:leading-[0.9]">
@@ -84,7 +84,7 @@ const Hero = () => {
           </div>
 
           {/* Short one-liner */}
-          <p className="text-gray-500 dark:text-zinc-400 text-lg leading-relaxed max-w-lg mx-auto md:mx-0 text-center md:text-justify hyphens-auto">
+          <p className="text-gray-600 dark:text-zinc-300 text-lg leading-relaxed max-w-lg mx-auto md:mx-0 text-center md:text-justify hyphens-auto">
             MERN Stack Developer from Rangpur, Bangladesh. I build full-stack web apps with React, Next.js and Node.js, and I care about clean code and simple, usable design.
           </p>
 
@@ -130,8 +130,8 @@ const Hero = () => {
           </div>
 
           {/* Scroll down */}
-          <div className="mt-8 flex items-center justify-center md:justify-start gap-3 text-gray-400 dark:text-zinc-600 w-full">
-            <div className="w-5 h-9 border-2 border-gray-300 dark:border-zinc-700 rounded-full flex justify-center pt-1">
+          <div className="mt-8 flex items-center justify-center md:justify-start gap-3 text-gray-600 dark:text-zinc-400 w-full">
+            <div className="w-5 h-9 border-2 border-gray-400 dark:border-zinc-600 rounded-full flex justify-center pt-1">
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
@@ -162,7 +162,14 @@ const Hero = () => {
 
             {/* Profile blob */}
             <div className="absolute inset-0 border border-[#2D8CFF]/30 rounded-[30%_70%_70%_30%/_30%_30%_70%_70%] overflow-hidden animate-blob shadow-[0_0_60px_rgba(45,140,255,0.18)]">
-              <Image src="/moynul.png" alt="Moynul" fill sizes="(max-width: 768px) 240px, 380px" className="object-cover" />
+              <Image
+                src="/moynul.png"
+                alt="Md. Moynul Islam"
+                fill
+                sizes="(max-width: 768px) 70vw, 400px"
+                priority
+                className="object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-white/30 dark:from-[#08080C]/40 to-transparent" />
             </div>
 
@@ -176,7 +183,7 @@ const Hero = () => {
               <FiCode className="text-[#2D8CFF] text-lg" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">MERN Stack</p>
-                <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">Developer</p>
+                <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5">Developer</p>
               </div>
             </motion.div>
 
@@ -190,7 +197,7 @@ const Hero = () => {
               <FaGraduationCap className="text-[#2D8CFF] text-lg" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Diploma CST</p>
-                <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">{currentYear} · RPI</p>
+                <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5">{currentYear} · RPI</p>
               </div>
             </motion.div>
 
@@ -204,7 +211,7 @@ const Hero = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Open to Work</p>
-                <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">Entry-Level MERN Developer</p>
+                <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5">Entry-Level MERN Developer</p>
               </div>
             </motion.div>
 
