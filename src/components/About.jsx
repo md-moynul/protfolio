@@ -13,6 +13,7 @@ import {
   FiGlobe,
 } from "react-icons/fi";
 import { FaGraduationCap, FaRocket } from "react-icons/fa";
+import { currentYear, degree, institute } from "@/data/profile";
 
 const About = () => {
   const [time, setTime] = useState("");
@@ -47,8 +48,8 @@ const About = () => {
           <div>
             <p className="font-display text-2xl text-gray-500 dark:text-zinc-400 leading-tight max-w-3xl text-left md:text-justify hyphens-auto">
               Merging{" "}
-              <span className="text-gradient">clean architecture</span> with{" "}
-              <span className="text-gradient">intuitive design</span>.
+              <span className="text-gradient">clean code</span> with{" "}
+              <span className="text-gradient">thoughtful design</span>.
             </p>
           </div>
 
@@ -85,36 +86,30 @@ const About = () => {
           >
             <div className="flex flex-col gap-5">
               <p className="text-body-lg text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
-                I am a{" "}
-                <span className="font-bold text-gray-900 dark:text-white">
-                  MERN Stack Developer
-                </span>{" "}
-                and Computer Science student at{" "}
+                I&apos;m a Computer Science student at{" "}
                 <span className="text-primary font-semibold">
-                  Rangpur Polytechnic Institute
+                  {institute}
                 </span>
-                . My expertise lies in building scalable web architectures that
-                prioritize performance and user experience above all else.
+                . I enjoy turning ideas into working web apps, and I&apos;m learning something new with every project I build.
               </p>
               <p className="text-body-lg text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
                 Based in{" "}
                 <span className="font-bold text-gray-900 dark:text-white">
                   Rangpur, Bangladesh
                 </span>
-                , I leverage the power of the React ecosystem to transform
-                complex requirements into elegant, high-performance digital
-                solutions. Beyond coding, I am deeply passionate about{" "}
+                , I work with the React ecosystem to build practical,
+                user-friendly digital solutions. Beyond coding, I am deeply passionate about{" "}
                 <span className="font-bold text-emerald-500 dark:text-emerald-400">
                   Farming 🌱
                 </span>
-                — cultivate discipline, patience, and sustainable growth both in fields and software.
+                — cultivating discipline, patience, and steady growth both in fields and software.
               </p>
             </div>
 
             {/* Inline Stats */}
             <div className="flex flex-wrap gap-4 pt-2 border-t border-gray-100 dark:border-zinc-800">
               {[
-                { value: "3rd", label: "Year", icon: FaGraduationCap, tooltip: "Diploma in Computer Science & Technology" },
+                { value: currentYear.replace(/ Year/i, ""), label: "Year", icon: FaGraduationCap, tooltip: degree },
                 { value: "Open", label: "Work", icon: FiCheckCircle, tooltip: "Available for internships and junior roles" },
                 { value: "MERN", label: "Stack", icon: FiCode, tooltip: "MongoDB, Express.js, React, Node.js" },
                 { value: "World", label: "Based", icon: FiGlobe, tooltip: "Remote ready and available for global opportunities" },
@@ -217,8 +212,8 @@ const About = () => {
               </h3>
               <p className="text-base text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
                 I prioritize clean, maintainable code and performance-first
-                development. Scalability and accessibility are never
-                afterthoughts — they&apos;re baked into my workflow from day one.
+                development. Simplicity, accessibility, and great user experience
+                are at the heart of everything I build.
               </p>
             </div>
           </motion.div>

@@ -63,8 +63,8 @@ const Contact = () => {
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full"></div>
           <div className="w-full lg:w-1/2 flex flex-col gap-6 relative z-10">
             <span className="font-label-caps text-primary text-[10px] tracking-[0.2em]">Get In Touch</span>
-            <h2 className="font-display text-4xl md:text-h1 text-gray-900 dark:text-white leading-tight">Ready to build something <span className="text-gradient">extraordinary</span>?</h2>
-            <p className="text-gray-600 dark:text-zinc-400 text-base md:text-body-lg text-left md:text-justify hyphens-auto">Currently available for internships, junior roles, or freelance projects. Let&apos;s build something great together.</p>
+            <h2 className="font-display text-4xl md:text-h1 text-gray-900 dark:text-white leading-tight">Let&apos;s build something <span className="text-gradient">great together</span>.</h2>
+            <p className="text-gray-600 dark:text-zinc-400 text-base md:text-body-lg text-left md:text-justify hyphens-auto">Currently available for internships, junior roles, or freelance projects. Feel free to reach out anytime.</p>
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-surface-container-highest flex items-center justify-center text-primary">

@@ -14,7 +14,7 @@ const Footer = () => (
             className="h-15 w-auto object-contain mb-2 dark:brightness-200 dark:contrast-125 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
           />
           <p className="text-sm text-gray-500 dark:text-zinc-500 max-w-xs leading-relaxed">
-            Architecting the future of web apps with clean code and intuitive design. Let&apos;s build something extraordinary.
+            Building modern web apps with clean code and thoughtful design.
           </p>
         </div>
 

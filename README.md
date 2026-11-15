@@ -2,7 +2,7 @@
 
 ### 🚀 Full-Stack MERN Developer & Computer Science Student
 
-A results-driven **MERN Stack Developer** from Rangpur, Bangladesh, passionate about architecting high-performance web applications, crafting intuitive UI/UX, and building scalable full-stack software. Outside of programming, I am deeply committed to **Farming 🌱**, cultivating patience, discipline, and sustainable problem-solving.
+A **MERN Stack Developer** from Rangpur, Bangladesh. I build full-stack web apps with React, Next.js and Node.js, and I care about clean code and simple, usable design. Outside of programming, I am deeply committed to **Farming 🌱**, cultivating patience, discipline, and steady growth.
 
 ---
 
@@ -11,7 +11,7 @@ A results-driven **MERN Stack Developer** from Rangpur, Bangladesh, passionate a
 - 🎓 **Education**: Computer Science & Technology (3rd Year Student at Rangpur Polytechnic Institute)
 - 📍 **Location**: Rangpur, Bangladesh (BST / UTC +6)
 - 💼 **Status**: Available for Work (Internships, Junior Roles & Freelance Projects)
-- 🌾 **Passions**: Web Architecture, Clean Code, UI/UX Design, and Sustainable Farming 🌱
+- 🌾 **Passions**: Clean Code, Modern Web Development, and Sustainable Farming 🌱
 
 ---
 
@@ -36,4 +36,4 @@ A results-driven **MERN Stack Developer** from Rangpur, Bangladesh, passionate a
 
 ---
 
-⭐ *"Building the future with clean code, modern web design, and continuous learning."*
+⭐ *"Building modern web apps with clean code, thoughtful design, and continuous learning."*

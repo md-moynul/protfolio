@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeInUp } from "./Animations";
+import { currentYear, degree, institute, startYear } from "@/data/profile";
 
 const Education = () => (
   <section className="py-16 md:py-30 px-5 md:px-8 max-w-7xl mx-auto" id="education">
@@ -43,13 +44,13 @@ const Education = () => (
             />
             <div className="glass-card p-6 md:p-8 rounded-xl">
               <span className="font-label-caps text-[#2D8CFF] mb-2 block tracking-widest text-xs uppercase">
-                2023 — Present
+                {startYear} — Present
               </span>
               <h3 className="font-h2 text-xl text-gray-900 dark:text-white mb-1">
-                Diploma in Computer Science &amp; Technology
+                {degree}
               </h3>
               <p className="text-sm text-gray-500 dark:text-on-surface-variant mb-3">
-                Rangpur Polytechnic Institute · Bangladesh
+                {institute} · Bangladesh
               </p>
               <p className="text-gray-600 dark:text-on-surface-variant leading-relaxed text-left md:text-justify hyphens-auto">
                 Building a solid foundation in core computing principles —
@@ -93,7 +94,7 @@ const Education = () => (
               <span className="text-sm text-gray-600 dark:text-on-surface-variant">
                 Currently in{" "}
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  2nd Year
+                  {currentYear}
                 </span>{" "}
                 — actively learning &amp; building projects
               </span>

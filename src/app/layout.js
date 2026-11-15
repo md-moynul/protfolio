@@ -8,7 +8,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 export const metadata = {
   title: "Portfolio | MD Moynul Islam",
   description:
-    "Architecting the Future of Web Apps. MERN Stack Developer specialized in building fast, responsive web applications.",
+    "Building modern web apps with clean code and thoughtful design.",
 };
 
 export default function RootLayout({ children }) {

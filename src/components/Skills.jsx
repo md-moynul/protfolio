@@ -52,7 +52,7 @@ const VscodeIcon = ({ className, style }) => (
 const categories = [
   {
     title: "Frontend Technologies",
-    description: "Component architecture, responsive frameworks, and fluid styling engines.",
+    description: "Component-driven development, responsive frameworks, and fluid styling engines.",
     categoryIcon: FiLayout,
     dotColor: "#61DAFB",
     skills: [
@@ -95,7 +95,7 @@ const categories = [
   },
   {
     title: "UI & Styling",
-    description: "Modern design systems, utility classes, and accessible component architectures.",
+    description: "Modern design systems, utility classes, and accessible component structures.",
     categoryIcon: FiLayers,
     dotColor: "#06B6D4",
     skills: [
@@ -131,7 +131,8 @@ const categories = [
 ];
 
 /* Continuous smoothstep proximity calculator (zero jumps, C1 smooth) */
-const getProximity = (p, centerPoint, radius = 0.09) => {
+const getProximity = (p, centerPoint, radius = 0.09, isLast = false) => {
+  if (isLast && p >= centerPoint) return 1;
   const dist = Math.abs(p - centerPoint);
   if (dist >= radius) return 0;
   const rawT = 1 - dist / radius;
@@ -203,36 +204,37 @@ const CategoryNode = ({
   prefersReducedMotion,
 }) => {
   const centerPoint = progressPoints[index];
+  const isLast = index === total - 1;
 
   // Opacity: Continuous smooth falloff, baseline 0.45 for non-active items so there are no blank gaps
   const opacity = useTransform(activeProgress, (p) => {
-    const proximity = getProximity(p, centerPoint, 0.09);
+    const proximity = getProximity(p, centerPoint, 0.09, isLast);
     return 0.45 + 0.55 * proximity;
   });
 
   // Scale: Continuous micro-elevation at center (suppressed under prefers-reduced-motion)
   const scale = useTransform(activeProgress, (p) => {
     if (prefersReducedMotion) return 1;
-    const proximity = getProximity(p, centerPoint, 0.09);
+    const proximity = getProximity(p, centerPoint, 0.09, isLast);
     return 1 + 0.018 * proximity;
   });
 
   // Horizontal connector line extension: Continuous 0.4 -> 1.0 based on proximity
   const connectorScaleX = useTransform(activeProgress, (p) => {
-    const proximity = getProximity(p, centerPoint, 0.09);
+    const proximity = getProximity(p, centerPoint, 0.09, isLast);
     return 0.4 + 0.6 * proximity;
   });
 
   // Timeline node marker scale: Continuous 0.75 -> 1.0 based on proximity
   const nodeScale = useTransform(activeProgress, (p) => {
     if (prefersReducedMotion) return 1;
-    const proximity = getProximity(p, centerPoint, 0.09);
+    const proximity = getProximity(p, centerPoint, 0.09, isLast);
     return 0.75 + 0.25 * proximity;
   });
 
   // Active ambient glow opacity: Continuous 0 -> 1.0 based on proximity
   const activeGlowOpacity = useTransform(activeProgress, (p) => {
-    return getProximity(p, centerPoint, 0.09);
+    return getProximity(p, centerPoint, 0.09, isLast);
   });
 
   return (
@@ -343,13 +345,13 @@ const Skills = () => {
   const listRef = useRef(null);
   const viewportRef = useRef(null);
 
-  // 7 evenly distributed checkpoints along the pinned 520vh scroll track
-  const progressPoints = [0.06, 0.20, 0.35, 0.50, 0.65, 0.79, 0.93];
+  // 7 evenly distributed checkpoints along the pinned 420vh scroll track
+  const progressPoints = [0.06, 0.21, 0.36, 0.51, 0.66, 0.81, 0.96];
 
   // Estimated initial offsets to prevent any flicker before measurement
-  const targetsRef = useRef([180, -50, -270, -480, -700, -960, -1220]);
+  const targetsRef = useRef([180, -50, -270, -480, -700, -900, -1080]);
 
-  // Track the raw scroll progress of the 520vh section
+  // Track the raw scroll progress of the 420vh section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -402,13 +404,27 @@ const Skills = () => {
 
       const items = listRef.current.querySelectorAll("[data-category-item]");
       if (items.length === categories.length) {
-        const newTargets = Array.from(items).map((el) => {
+        const newTargets = Array.from(items).map((el, i) => {
+          if (i === items.length - 1) {
+            // Align the bottom of the list with the bottom of the viewport for the last category
+            const lastTarget = Math.round(viewportRect.height - listRef.current.offsetHeight);
+            return Number.isFinite(lastTarget) ? lastTarget : 0;
+          }
           const elTop = el.offsetTop;
           const elHeight = el.offsetHeight;
           const itemCenterInList = elTop + elHeight / 2;
           const target = Math.round(viewportCenter - itemCenterInList);
           return Number.isFinite(target) ? target : 0;
         });
+
+        // Ensure the last target is never less negative than the previous target,
+        // so the list never scrolls backwards
+        for (let i = 1; i < newTargets.length; i++) {
+          if (newTargets[i] > newTargets[i - 1]) {
+            newTargets[i] = newTargets[i - 1];
+          }
+        }
+
         if (newTargets.every(Number.isFinite)) {
           targetsRef.current = newTargets;
         }
@@ -444,7 +460,7 @@ const Skills = () => {
     if (!targets || targets.length !== categories.length) return 0;
 
     const points = progressPoints;
-    const holdHalf = 0.025; // Dwell/hold window around each category center
+    const holdHalf = 0.02; // Dwell/hold window around each category center
 
     // Initial hold zone
     if (progress <= points[0] + holdHalf) return targets[0];
@@ -477,7 +493,7 @@ const Skills = () => {
       ref={containerRef}
       id="skills"
       className="relative bg-transparent"
-      style={{ height: "520vh" }}
+      style={{ height: "420vh" }}
     >
       {/* Sticky Pinned Viewport Container (stays pinned at top: 0, 100dvh avoids mobile address-bar jumps) */}
       <div
@@ -523,7 +539,7 @@ const Skills = () => {
           <motion.div
             ref={listRef}
             style={{ y: listY }}
-            className="relative pl-6 sm:pl-8 timeline-line flex flex-col gap-6 md:gap-8 w-full will-change-transform pt-4 pb-48"
+            className="relative pl-6 sm:pl-8 timeline-line flex flex-col gap-6 md:gap-8 w-full will-change-transform pt-4 pb-16"
           >
             {categories.map((category, index) => (
               <CategoryNode

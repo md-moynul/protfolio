@@ -431,7 +431,7 @@ const Projects = () => {
           <div className="max-w-2xl">
             <h2 className="font-h2 text-h2 text-gray-900 dark:text-white mb-4">Recent Projects</h2>
             <p className="text-gray-600 dark:text-zinc-400">
-              A collection of technical solutions where architecture meets aesthetics.
+              A collection of full-stack web applications built with clean code and thoughtful design.
             </p>
           </div>
           <div className="hidden md:flex items-center gap-2 text-gray-400 dark:text-zinc-500 text-xs font-bold tracking-widest">

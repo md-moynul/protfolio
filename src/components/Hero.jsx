@@ -6,6 +6,7 @@ import Typewriter from "typewriter-effect";
 import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap } from "react-icons/fa";
 import { FiArrowDown, FiFileText, FiCode } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
+import { currentYear } from "@/data/profile";
 
 /* ── Hero ── */
 const Hero = () => {
@@ -68,9 +69,9 @@ const Hero = () => {
                     options={{
                       strings: [
                         "MERN Stack Developer",
-                        "React.js Specialist",
-                        "Full-Stack Architect",
-                        "UI/UX Enthusiast",
+                        "Full-Stack Developer",
+                        "React Developer",
+                        "Next.js Developer",
                       ],
                       autoStart: true,
                       loop: true,
@@ -84,8 +85,7 @@ const Hero = () => {
 
           {/* Short one-liner */}
           <p className="text-gray-500 dark:text-zinc-400 text-lg leading-relaxed max-w-lg mx-auto md:mx-0 text-center md:text-justify hyphens-auto">
-            A results-driven <span className="text-gray-900 dark:text-white font-semibold">MERN Stack Developer</span> from Rangpur, Bangladesh.
-            I architect high-performance web applications with a focus on clean code and intuitive design. 🚀
+            MERN Stack Developer from Rangpur, Bangladesh. I build full-stack web apps with React, Next.js and Node.js, and I care about clean code and simple, usable design.
           </p>
 
           {/* CTAs */}
@@ -190,7 +190,7 @@ const Hero = () => {
               <FaGraduationCap className="text-[#2D8CFF] text-lg" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Diploma CST</p>
-                <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">2nd Year · RPI</p>
+                <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">{currentYear} · RPI</p>
               </div>
             </motion.div>
 
