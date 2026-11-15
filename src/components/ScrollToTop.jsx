@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FiArrowUp } from "react-icons/fi";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +40,7 @@ const ScrollToTop = () => {
           className="fixed bottom-8 right-8 w-12 h-12 bg-[#2D8CFF] text-white rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(45,140,255,0.4)] z-[40] transition-colors hover:bg-[#1a6fd8]"
           aria-label="Scroll to top"
         >
-          <span className="material-symbols-outlined font-bold">arrow_upward</span>
+          <FiArrowUp className="text-xl stroke-[2.5]" />
         </motion.button>
       )}
     </AnimatePresence>

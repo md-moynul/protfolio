@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp } from "./Animations";
+import { FiMail, FiMapPin, FiSend, FiLoader } from "react-icons/fi";
 
 const Contact = () => {
   const [formState, setFormState] = useState({
@@ -67,7 +68,7 @@ const Contact = () => {
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-surface-container-highest flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined">mail</span>
+                  <FiMail className="text-xl" />
                 </div>
                 <div>
                   <span className="block font-label-caps text-gray-500 dark:text-on-surface-variant text-[10px]">Email Me</span>
@@ -76,7 +77,7 @@ const Contact = () => {
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-surface-container-highest flex items-center justify-center text-primary">
-                  <span className="material-symbols-outlined">location_on</span>
+                  <FiMapPin className="text-xl" />
                 </div>
                 <div>
                   <span className="block font-label-caps text-gray-500 dark:text-on-surface-variant text-[10px]">Location</span>
@@ -144,9 +145,11 @@ const Contact = () => {
               type="submit"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
-              <span className={`material-symbols-outlined text-sm ${isSubmitting ? "animate-spin" : ""}`}>
-                {isSubmitting ? "sync" : "send"}
-              </span>
+              {isSubmitting ? (
+                <FiLoader className="text-sm animate-spin" />
+              ) : (
+                <FiSend className="text-sm" />
+              )}
             </motion.button>
             {status.message && (
               <motion.p

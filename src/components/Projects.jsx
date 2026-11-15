@@ -5,6 +5,15 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeInUp, staggerContainer } from "./Animations";
 import { FaGithub } from "react-icons/fa";
+import {
+  FiX,
+  FiCalendar,
+  FiStar,
+  FiExternalLink,
+  FiInfo,
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi";
 
 const PROJECTS_PER_PAGE = 3;
 
@@ -51,7 +60,7 @@ const ProjectModal = ({ project, onClose }) => {
             aria-label="Close modal"
             className="sticky top-3 right-3 self-end z-50 -mb-10 mr-3 w-10 h-10 rounded-full flex items-center justify-center bg-black/50 hover:bg-black/70 text-white backdrop-blur-md border border-white/20 transition-all duration-200 shadow-lg hover:scale-105"
           >
-            <span className="material-symbols-outlined text-xl">close</span>
+            <FiX className="text-xl" />
           </button>
 
           {/* Project Header Image */}
@@ -73,7 +82,7 @@ const ProjectModal = ({ project, onClose }) => {
               <div className="flex flex-wrap items-center gap-2 mb-3">
                 {(project.starting_date || project.finished_date) && (
                   <span className="text-[11px] font-semibold text-gray-500 dark:text-zinc-400 flex items-center gap-1.5 bg-gray-100 dark:bg-white/5 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10">
-                    <span className="material-symbols-outlined text-xs text-[#2D8CFF]">calendar_today</span>
+                    <FiCalendar className="text-xs text-[#2D8CFF]" />
                     {project.starting_date} — {project.finished_date || "Present"}
                   </span>
                 )}
@@ -101,7 +110,7 @@ const ProjectModal = ({ project, onClose }) => {
             {project.features?.length > 0 && (
               <div className="bg-gray-50 dark:bg-white/[0.03] p-5 rounded-2xl border border-gray-100 dark:border-white/5">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 dark:text-zinc-400 mb-3 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-sm text-[#2D8CFF]">stars</span>
+                  <FiStar className="text-sm text-[#2D8CFF]" />
                   Key Features & Highlights
                 </h4>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -123,7 +132,7 @@ const ProjectModal = ({ project, onClose }) => {
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-full font-bold text-xs flex items-center gap-2 text-white bg-[#2D8CFF] hover:bg-[#1f73df] transition-all duration-300 shadow-[0_8px_20px_rgba(45,140,255,0.3)] hover:shadow-[0_12px_25px_rgba(45,140,255,0.4)] hover:-translate-y-0.5"
               >
-                Live Preview <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                Live Preview <FiExternalLink className="text-sm" />
               </a>
 
               {project.githubFrontend && project.githubBackend ? (
@@ -170,7 +179,7 @@ const ProjectModal = ({ project, onClose }) => {
                 onClick={onClose}
                 className="px-5 py-3 rounded-full font-bold text-xs flex items-center gap-1.5 text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 transition-all duration-300 ml-auto"
               >
-                <span className="material-symbols-outlined text-sm">close</span> Close
+                <FiX className="text-sm" /> Close
               </button>
             </div>
           </div>
@@ -206,7 +215,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
       <div className="flex flex-wrap items-center gap-2 mb-3">
         {(project.starting_date || project.finished_date) && (
           <span className="text-[10px] font-bold text-gray-500 dark:text-zinc-400 flex items-center gap-1 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded border border-gray-200 dark:border-white/10">
-            <span className="material-symbols-outlined text-xs text-[#2D8CFF]">calendar_today</span>
+            <FiCalendar className="text-xs text-[#2D8CFF]" />
             {project.starting_date} – {project.finished_date || "Present"}
           </span>
         )}
@@ -232,7 +241,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
           onClick={() => onViewDetails(project)}
           className="px-4 py-2 rounded-full font-bold text-xs flex items-center gap-1.5 bg-[#2D8CFF]/10 border border-[#2D8CFF]/30 text-[#2D8CFF] hover:bg-[#2D8CFF] hover:text-white hover:border-[#2D8CFF] transition-all"
         >
-          <span className="material-symbols-outlined text-sm">info</span>
+          <FiInfo className="text-sm" />
           View Details
         </button>
 
@@ -244,7 +253,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
           className="px-4 py-2 border border-gray-300 dark:border-[#262626] rounded-full text-gray-600 dark:text-zinc-300 font-bold text-xs flex items-center gap-1.5 hover:border-[#2D8CFF] hover:text-[#2D8CFF] hover:bg-[#2D8CFF]/10 transition-all"
         >
           Live Demo
-          <span className="material-symbols-outlined text-sm">arrow_outward</span>
+          <FiExternalLink className="text-sm" />
         </a>
 
         {/* GitHub(s) */}
@@ -302,7 +311,7 @@ const Pagination = ({ current, total, onChange }) => {
         disabled={current === 1}
         className="w-9 h-9 rounded-full flex items-center justify-center border border-gray-300 dark:border-white/10 text-gray-500 dark:text-zinc-400 hover:border-[#2D8CFF] hover:text-[#2D8CFF] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
-        <span className="material-symbols-outlined text-lg">chevron_left</span>
+        <FiChevronLeft className="text-lg" />
       </button>
 
       {/* Page numbers */}
@@ -325,7 +334,7 @@ const Pagination = ({ current, total, onChange }) => {
         disabled={current === total}
         className="w-9 h-9 rounded-full flex items-center justify-center border border-gray-300 dark:border-white/10 text-gray-500 dark:text-zinc-400 hover:border-[#2D8CFF] hover:text-[#2D8CFF] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
-        <span className="material-symbols-outlined text-lg">chevron_right</span>
+        <FiChevronRight className="text-lg" />
       </button>
     </div>
   );

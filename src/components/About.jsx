@@ -3,6 +3,16 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "./Animations";
+import {
+  FiMapPin,
+  FiPhone,
+  FiTerminal,
+  FiArrowRight,
+  FiCheckCircle,
+  FiCode,
+  FiGlobe,
+} from "react-icons/fi";
+import { FaGraduationCap, FaRocket } from "react-icons/fa";
 
 const About = () => {
   const [time, setTime] = useState("");
@@ -104,11 +114,11 @@ const About = () => {
             {/* Inline Stats */}
             <div className="flex flex-wrap gap-4 pt-2 border-t border-gray-100 dark:border-zinc-800">
               {[
-                { value: "3rd", label: "Year", icon: "school", tooltip: "Diploma in Computer Science & Technology" },
-                { value: "Open", label: "Work", icon: "verified_user", tooltip: "Available for internships and junior roles" },
-                { value: "MERN", label: "Stack", icon: "code", tooltip: "MongoDB, Express.js, React, Node.js" },
-                { value: "World", label: "Based", icon: "public", tooltip: "Remote ready and available for global opportunities" },
-              ].map(({ value, label, icon, tooltip }) => (
+                { value: "3rd", label: "Year", icon: FaGraduationCap, tooltip: "Diploma in Computer Science & Technology" },
+                { value: "Open", label: "Work", icon: FiCheckCircle, tooltip: "Available for internships and junior roles" },
+                { value: "MERN", label: "Stack", icon: FiCode, tooltip: "MongoDB, Express.js, React, Node.js" },
+                { value: "World", label: "Based", icon: FiGlobe, tooltip: "Remote ready and available for global opportunities" },
+              ].map(({ value, label, icon: IconComponent, tooltip }) => (
                 <motion.div
                   key={label}
                   initial="initial"
@@ -140,15 +150,15 @@ const About = () => {
                     </motion.div>
                   )}
                   
-                  <motion.span 
+                  <motion.div 
                     variants={{
                       initial: { rotate: 0, scale: 1 },
                       hover: { rotate: 12, scale: 1.2 }
                     }}
-                    className="material-symbols-outlined text-primary/50 text-xl mb-1 transition-colors duration-300 group-hover/stat:text-primary"
+                    className="text-primary/70 text-xl mb-1 transition-colors duration-300 group-hover/stat:text-primary flex items-center justify-center"
                   >
-                    {icon}
-                  </motion.span>
+                    <IconComponent className="text-xl" />
+                  </motion.div>
                   <span className="text-xl font-black text-primary leading-none">
                     {value}
                   </span>
@@ -166,7 +176,7 @@ const About = () => {
             className="lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center text-center gap-4 group"
           >
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
-              <span className="material-symbols-outlined text-3xl">location_on</span>
+              <FiMapPin className="text-3xl" />
             </div>
             <div>
               <h3 className="font-bold text-gray-900 dark:text-white text-xl">
@@ -179,7 +189,7 @@ const About = () => {
                 href="tel:+8801746568176"
                 className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#2D8CFF] hover:underline mt-2 bg-[#2D8CFF]/10 px-3 py-1 rounded-full border border-[#2D8CFF]/20"
               >
-                <span className="material-symbols-outlined text-sm">call</span>
+                <FiPhone className="text-xs" />
                 +880 1746-568176
               </a>
               <p className="text-[11px] font-mono text-gray-400 dark:text-zinc-600 mt-2 tracking-widest uppercase">
@@ -199,7 +209,7 @@ const About = () => {
             className="lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-4"
           >
             <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-2xl">terminal</span>
+              <FiTerminal className="text-2xl" />
             </div>
             <div>
               <h3 className="font-bold text-gray-900 dark:text-white text-xl mb-2">
@@ -208,7 +218,7 @@ const About = () => {
               <p className="text-base text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
                 I prioritize clean, maintainable code and performance-first
                 development. Scalability and accessibility are never
-                afterthoughts — they're baked into my workflow from day one.
+                afterthoughts — they&apos;re baked into my workflow from day one.
               </p>
             </div>
           </motion.div>
@@ -220,7 +230,7 @@ const About = () => {
           >
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-2xl">rocket_launch</span>
+                <FaRocket className="text-2xl" />
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-xl">
                 Current Focus
@@ -229,26 +239,15 @@ const About = () => {
 
             <div className="flex flex-col gap-2">
               {[
-                {
-                  icon: "arrow_forward",
-                  text: "Next.js App Router & Server Actions",
-                },
-                {
-                  icon: "arrow_forward",
-                  text: "Advanced Framer Motion techniques",
-                },
-                {
-                  icon: "arrow_forward",
-                  text: "Immersive & accessible web experiences",
-                },
-              ].map(({ icon, text }) => (
+                "Next.js App Router & Server Actions",
+                "Advanced Framer Motion techniques",
+                "Immersive & accessible web experiences",
+              ].map((text) => (
                 <div
                   key={text}
                   className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10 text-base font-medium text-gray-800 dark:text-zinc-200"
                 >
-                  <span className="material-symbols-outlined text-primary text-xl">
-                    {icon}
-                  </span>
+                  <FiArrowRight className="text-primary text-xl flex-shrink-0" />
                   {text}
                 </div>
               ))}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,9 +111,7 @@ const Navbar = () => {
               className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 dark:bg-white/10 text-gray-800 dark:text-white border border-gray-200/60 dark:border-white/10"
               aria-label="Toggle Menu"
             >
-              <span className="material-symbols-outlined text-xl">
-                {isOpen ? "close" : "menu"}
-              </span>
+              {isOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
             </button>
           </div>
         </motion.nav>

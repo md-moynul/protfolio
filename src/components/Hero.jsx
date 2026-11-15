@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
-import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap } from "react-icons/fa";
+import { FiArrowDown, FiFileText, FiCode } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
 
 /* ── Hero ── */
@@ -96,7 +97,7 @@ const Hero = () => {
               className="px-8 py-4 bg-[#2D8CFF] rounded-full text-white font-bold text-sm flex items-center gap-2 hover:bg-[#1a6fd8] transition-all shadow-[0_10px_20px_rgba(45,140,255,0.25)] hover:shadow-[0_15px_30px_rgba(45,140,255,0.35)]"
             >
               Explore My Work
-              <span className="material-symbols-outlined text-sm">arrow_downward</span>
+              <FiArrowDown className="text-sm stroke-[2.5]" />
             </motion.a>
 
             <motion.a
@@ -108,7 +109,7 @@ const Hero = () => {
               className="px-6 py-3 rounded-full text-gray-900 dark:text-white font-bold text-sm flex items-center gap-2 border border-gray-200 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 transition-all backdrop-blur-sm"
             >
               View Resume
-              <span className="material-symbols-outlined text-sm">description</span>
+              <FiFileText className="text-sm" />
             </motion.a>
 
             <div className="flex items-center gap-2">
@@ -172,7 +173,7 @@ const Hero = () => {
               transition={{ delay: 0.5 }}
               className="absolute -top-6 -right-6 md:-top-3 md:-right-3 bg-white/90 dark:bg-[#0d0d14]/90 backdrop-blur-md border border-[#2D8CFF]/25 px-3 py-2 md:px-4 md:py-3 rounded-2xl flex items-center gap-2 shadow-lg z-20 scale-100 md:scale-100"
             >
-              <span className="material-symbols-outlined text-[#2D8CFF] text-lg">code</span>
+              <FiCode className="text-[#2D8CFF] text-lg" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">MERN Stack</p>
                 <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">Developer</p>
@@ -186,7 +187,7 @@ const Hero = () => {
               transition={{ delay: 0.7 }}
               className="absolute top-[15%] -left-12 md:top-1/3 md:-left-14 bg-white/90 dark:bg-[#0d0d14]/90 backdrop-blur-md border border-[#2D8CFF]/25 px-3 py-2 md:px-4 md:py-3 rounded-2xl flex items-center gap-2 shadow-lg z-20 scale-100 md:scale-100"
             >
-              <span className="material-symbols-outlined text-[#2D8CFF] text-lg">school</span>
+              <FaGraduationCap className="text-[#2D8CFF] text-lg" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Diploma CST</p>
                 <p className="text-[10px] text-gray-400 dark:text-zinc-500 uppercase font-semibold mt-0.5">2nd Year · RPI</p>
