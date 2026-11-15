@@ -72,6 +72,29 @@ async function optimizeImages() {
     // dragon-news.png not found or already handled
   }
 
+  // Certificate image optimization (max 1200px width, quality 80 WebP)
+  const certJpgPath = path.join(publicDir, "certificate.jpg");
+  const certWebpPath = path.join(imagesDir, "certificate-programming-hero.webp");
+  try {
+    const certStat = await fs.stat(certJpgPath);
+    totalOriginal += certStat.size;
+
+    await sharp(certJpgPath)
+      .resize({ width: 1200, withoutEnlargement: true })
+      .webp({ quality: 80, effort: 6 })
+      .toFile(certWebpPath);
+
+    const certOutStat = await fs.stat(certWebpPath);
+    totalOptimized += certOutStat.size;
+    console.log(
+      `✓ certificate.jpg (${(certStat.size / 1024).toFixed(1)} KB) -> images/certificate-programming-hero.webp (${(
+        certOutStat.size / 1024
+      ).toFixed(1)} KB)`
+    );
+  } catch (e) {
+    // certificate.jpg already converted or removed
+  }
+
   console.log("--------------------------------------------------");
   console.log(
     `Total original size: ${(totalOriginal / (1024 * 1024)).toFixed(2)} MB`

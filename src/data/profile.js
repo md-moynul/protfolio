@@ -30,4 +30,6 @@ export const linkedin = profile.linkedin;
 export const github = profile.github;
 export const facebook = profile.facebook;
 
+export { certificates } from "./certificates";
+
 export default profile;

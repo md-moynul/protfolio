@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
-import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap, FaAward } from "react-icons/fa";
 import { FiArrowDown, FiFileText, FiCode } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
 import { currentYear, email, phoneRaw, linkedin } from "@/data/profile";
@@ -37,18 +37,36 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center md:items-start gap-5 w-full md:w-1/2 text-center md:text-left"
         >
-          {/* Available badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2D8CFF]/30 bg-[#2D8CFF]/10 backdrop-blur-sm"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-xs font-semibold tracking-widest uppercase">
-              Available for Work
-            </span>
-          </motion.div>
+          {/* Badges */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2D8CFF]/30 bg-[#2D8CFF]/10 backdrop-blur-sm shrink-0"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-emerald-400 text-xs font-semibold tracking-widest uppercase">
+                Available for Work
+              </span>
+            </motion.div>
+
+            <motion.a
+              href="#education"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#2D8CFF]/30 bg-[#2D8CFF]/10 hover:bg-[#2D8CFF]/20 text-gray-700 dark:text-zinc-200 hover:text-[#2D8CFF] dark:hover:text-white text-xs font-medium transition-all duration-300 backdrop-blur-sm group"
+            >
+              <FaAward className="text-xs text-[#2D8CFF] shrink-0" />
+              <span className="text-left">
+                Programming Hero · Batch 13 ·{" "}
+                <span className="font-semibold text-gray-900 dark:text-white group-hover:text-[#2D8CFF] transition-colors">
+                  Completion with Excellence
+                </span>
+              </span>
+            </motion.a>
+          </div>
 
           {/* Name */}
           <div className="w-full">
