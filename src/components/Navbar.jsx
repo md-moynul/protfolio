@@ -1,88 +1,123 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
 import { FiMenu, FiX } from "react-icons/fi";
 
+const navLinks = [
+  { name: "Home", href: "#hero", id: "hero" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Experience", href: "#experience", id: "experience" },
+  { name: "Education", href: "#education", id: "education" },
+  { name: "Contact", href: "#contact", id: "contact" },
+];
+
+const HIDE_AFTER = 120; // Hide navbar only after scrolling down past this threshold (px)
+const TOP_ZONE = 20; // Scroll position to consider at the very top (px)
+const DELTA = 6; // Ignore scroll jitter smaller than this delta (px)
+const SUPPRESS_DURATION = 1000; // Time (ms) to keep navbar visible after clicking a nav link
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
+  const shouldReduceMotion = useReducedMotion();
 
-  // Track scroll position & active section
+  const lastY = useRef(0);
+  const isOpenRef = useRef(false);
+  const suppressHideUntil = useRef(0);
+
+  useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const y = window.scrollY;
 
-      const sections = [
-        { name: "Home", id: "hero" },
-        { name: "About", id: "about" },
-        { name: "Skills", id: "skills" },
-        { name: "Projects", id: "projects" },
-        { name: "Experience", id: "experience" },
-        { name: "Education", id: "education" },
-        { name: "Contact", id: "contact" },
-      ];
+      // 1) Slide up / fade out on scroll down, reappear on scroll up
+      if (y <= TOP_ZONE) {
+        setHidden(false);
+        lastY.current = y;
+      } else {
+        const delta = y - lastY.current;
+        if (Math.abs(delta) > DELTA) {
+          if (!isOpenRef.current) {
+            const isSuppressed = Date.now() < suppressHideUntil.current;
+            if (isSuppressed) {
+              setHidden(false);
+            } else {
+              setHidden(delta > 0 && y > HIDE_AFTER);
+            }
+          }
+          lastY.current = y;
+        }
+      }
 
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i].id);
+      // 2) Active section tracking
+      const scrollPosition = y + 200;
+      for (let i = navLinks.length - 1; i >= 0; i--) {
+        const section = document.getElementById(navLinks[i].id);
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i].name);
+          setActiveSection(navLinks[i].name);
           break;
         }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Education", href: "#education" },
-    { name: "Contact", href: "#contact" },
-  ];
+  const handleNavClick = (linkName) => {
+    setActiveSection(linkName);
+    suppressHideUntil.current = Date.now() + SUPPRESS_DURATION;
+    setHidden(false);
+    if (isOpenRef.current) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <>
-      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
+      <div className="fixed top-3 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
         <motion.nav
           initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className={`pointer-events-auto flex items-center justify-between gap-4 md:gap-8 px-5 md:px-7 py-2.5 md:py-3 rounded-full transition-all duration-300 w-full max-w-4xl border ${
-            scrolled
-              ? "bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl border-gray-300 dark:border-white/20 shadow-xl shadow-black/5 dark:shadow-black/40"
-              : "bg-white/40 dark:bg-zinc-950/40 backdrop-blur-lg border-gray-300/80 dark:border-white/15 shadow-md"
-          }`}
+          animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: "easeOut" }}
+          className={`${
+            hidden ? "pointer-events-none" : "pointer-events-auto"
+          } flex items-center justify-between gap-3 md:gap-6 px-4 md:px-5 py-1.5 rounded-full w-full max-w-3xl border border-gray-300/60 dark:border-white/15 bg-transparent backdrop-blur-md shadow-sm transition-[border-color,box-shadow] duration-300`}
         >
-          <a href="#hero" className="flex items-center gap-2 group flex-shrink-0">
+          <a
+            href="#hero"
+            onClick={() => handleNavClick("Home")}
+            className="flex items-center gap-2 group flex-shrink-0"
+          >
             <Image
               src="/images/logo.png"
               alt="Logo"
               width={140}
               height={32}
-              className="h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-105 dark:brightness-200 dark:contrast-125 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+              className="h-5 md:h-6 w-auto object-contain transition-transform group-hover:scale-105 dark:brightness-200 dark:contrast-125 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
             />
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-gray-100/50 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/10">
+          <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-gray-100/50 dark:bg-white/5 p-0.5 rounded-full border border-gray-200/60 dark:border-white/10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.name;
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-2.5 lg:px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
+                  onClick={() => handleNavClick(link.name)}
+                  className={`relative px-2.5 lg:px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide transition-colors duration-200 ${
                     isActive
                       ? "text-[#2D8CFF] dark:text-white"
                       : "text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"
@@ -91,7 +126,7 @@ const Navbar = () => {
                   {isActive && (
                     <motion.div
                       layoutId="activePill"
-                      className="absolute inset-0 bg-white dark:bg-white/10 rounded-full shadow-sm"
+                      className="absolute inset-0 bg-white/90 dark:bg-white/10 rounded-full shadow-xs"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -103,17 +138,17 @@ const Navbar = () => {
 
           {/* Actions (Theme Toggle & Mobile Menu) */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            <div className="p-0.5 rounded-full bg-gray-100/80 dark:bg-white/10 border border-gray-200/60 dark:border-white/10">
+            <div className="scale-75 origin-center -mx-1 flex items-center">
               <ThemeToggle />
             </div>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 dark:bg-white/10 text-gray-800 dark:text-white border border-gray-200/60 dark:border-white/10"
+              className="md:hidden flex items-center justify-center w-8 h-8 rounded-full bg-gray-100/60 dark:bg-white/10 text-gray-800 dark:text-white border border-gray-200/60 dark:border-white/10"
               aria-label="Toggle Menu"
             >
-              {isOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
+              {isOpen ? <FiX className="text-lg" /> : <FiMenu className="text-lg" />}
             </button>
           </div>
         </motion.nav>
@@ -136,7 +171,7 @@ const Navbar = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-20 left-4 right-4 z-[110] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl rounded-3xl p-6 border border-gray-200 dark:border-white/10 shadow-2xl md:hidden max-w-md mx-auto"
+              className="fixed top-16 left-4 right-4 z-[110] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl rounded-3xl p-6 border border-gray-200 dark:border-white/10 shadow-2xl md:hidden max-w-md mx-auto"
             >
               <div className="flex flex-col gap-2">
                 {navLinks.map((link) => {
@@ -145,7 +180,7 @@ const Navbar = () => {
                     <a
                       key={link.name}
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => handleNavClick(link.name)}
                       className={`flex items-center justify-between px-5 py-3.5 rounded-2xl text-sm font-semibold transition-all ${
                         isActive
                           ? "bg-[#2D8CFF]/10 text-[#2D8CFF] dark:bg-[#2D8CFF]/20"
