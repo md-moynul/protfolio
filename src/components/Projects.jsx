@@ -225,19 +225,23 @@ const ProjectCard = ({ project, onViewDetails }) => {
 
     {/* Body */}
     <div className="p-6 flex flex-col flex-grow">
-      {/* Date badge + Tags */}
+      {/* Date badge */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
         {(project.starting_date || project.finished_date) && (
-          <span className="text-xs font-semibold text-gray-600 dark:text-zinc-300 flex items-center gap-1 bg-gray-100 dark:bg-white/5 px-2.5 py-0.5 rounded border border-gray-200 dark:border-white/10">
+          <span className="text-xs font-semibold text-gray-600 dark:text-zinc-300 flex items-center gap-1.5 bg-gray-100 dark:bg-white/5 px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/10">
             <FiCalendar className="text-xs text-[#2D8CFF]" />
             {project.starting_date} – {project.finished_date || "Present"}
           </span>
         )}
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-4">
+      {/* Tags Badges */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
         {project.tags.map((tag) => (
-          <span key={tag} className="text-xs font-bold tracking-[0.15em] text-[#2D8CFF]">
+          <span
+            key={tag}
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#2D8CFF]/10 text-[#2D8CFF] border border-[#2D8CFF]/20 hover:bg-[#2D8CFF]/20 transition-all duration-200"
+          >
             {tag}
           </span>
         ))}
