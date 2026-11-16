@@ -1,35 +1,39 @@
 [
   {
     "id": 0,
-    "title": "Smart health",
+    "title": "ShopNest",
     "tags": [
       "Full-Stack",
-      "Healthcare",
-      "AI",
-      "Next.js"
+      "Team Project",
+      "E-commerce",
+      "React"
     ],
     "teacstack": [
-      "Next.js",
+      "React",
       "TypeScript",
-      "AI Prescription Analyzer",
-      "AI Chat Widget",
-      "Tailwind CSS"
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT",
+      "Nodemailer"
     ],
-    "desc": "A comprehensive healthcare management and online pharmacy solution.",
-    "longDesc": "SmartHealth is a cutting-edge vibe coding application designed as a comprehensive online pharmacy and healthcare management solution. It allows users to manage their prescriptions entirely online and consult with licensed pharmacists 24/7 via secure chat. The application features an advanced AI prescription analyzer and an intelligent chat widget to streamline patient care. Built for affordability, the platform accepts major insurance plans and offers same-day local delivery for critical medications. By merging cutting-edge biological science with premium product design, it provides an intuitive environment for optimizing daily vitality and well-being.",
-    "starting_date": "Jul 20, 2026",
-    "finished_date": "Jul 22, 2026",
-    "link": "https://smart-health-cyan.vercel.app/",
-    "githubFrontend": "https://github.com/md-moynul/smart-health",
-    "githubBackend": "https://github.com/md-moynul/smart-health-backend",
+    "desc": "A collaborative full-stack e-commerce platform with dynamic cataloging, cart workflows, and secure JWT auth.",
+    "longDesc": "ShopNest is a modern full-stack e-commerce web platform developed as a collaborative team project. It provides an intuitive online shopping environment featuring dynamic product cataloging, category filtering, cart management, and streamlined checkout workflows. The backend is architected with Node.js, Express, and MongoDB, secured via JWT-based user authentication and authorization. Automated email notifications powered by Nodemailer handle user registration and purchase confirmations. MD Moynul contributed significantly to the frontend architecture and user interface on the 'moynul' branch, implementing responsive UI components and state management.",
+    "starting_date": "Aug 2026",
+    "finished_date": "Sep 2026",
+    "link": "https://shopnest-frontend-vo3a.onrender.com/",
+    "githubFrontend": "https://github.com/Farhadmu/shopnest-frontend/tree/moynul",
+    "githubBackend": "https://github.com/Farhadmu/shopnest-backend",
     "features": [
-      "Online Prescription Management",
-      "24/7 Pharmacist Chat",
-      "AI Prescription Analyzer",
-      "Same-day Local Delivery",
-      "Insurance Integration"
+      "Team Collaborative Development (Branch: moynul)",
+      "Secure JWT User Authentication & Authorization",
+      "Dynamic Product Catalog & Category Filtering",
+      "Cart Management & Seamless Checkout Workflow",
+      "Automated Email Notifications via Nodemailer",
+      "Fully Responsive UI built with React & Tailwind CSS"
     ],
-    "img": "/images/smart-health.webp"
+    "img": "/images/shopnest.webp"
   },
   {
     "id": 1,
@@ -100,6 +104,38 @@
   },
   {
     "id": 3,
+    "title": "Smart health",
+    "tags": [
+      "Full-Stack",
+      "Healthcare",
+      "AI",
+      "Next.js"
+    ],
+    "teacstack": [
+      "Next.js",
+      "TypeScript",
+      "AI Prescription Analyzer",
+      "AI Chat Widget",
+      "Tailwind CSS"
+    ],
+    "desc": "A comprehensive healthcare management and online pharmacy solution.",
+    "longDesc": "SmartHealth is a cutting-edge vibe coding application designed as a comprehensive online pharmacy and healthcare management solution. It allows users to manage their prescriptions entirely online and consult with licensed pharmacists 24/7 via secure chat. The application features an advanced AI prescription analyzer and an intelligent chat widget to streamline patient care. Built for affordability, the platform accepts major insurance plans and offers same-day local delivery for critical medications. By merging cutting-edge biological science with premium product design, it provides an intuitive environment for optimizing daily vitality and well-being.",
+    "starting_date": "Jul 20, 2026",
+    "finished_date": "Jul 22, 2026",
+    "link": "https://smart-health-cyan.vercel.app/",
+    "githubFrontend": "https://github.com/md-moynul/smart-health",
+    "githubBackend": "https://github.com/md-moynul/smart-health-backend",
+    "features": [
+      "Online Prescription Management",
+      "24/7 Pharmacist Chat",
+      "AI Prescription Analyzer",
+      "Same-day Local Delivery",
+      "Insurance Integration"
+    ],
+    "img": "/images/smart-health.webp"
+  },
+  {
+    "id": 4,
     "title": "SportNest",
     "tags": [
       "Next.js",
@@ -134,7 +170,7 @@
     "img": "/images/sportnest.webp"
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "Qurbani Hat",
     "tags": [
       "Node.js",
@@ -168,7 +204,7 @@
     "img": "/images/kurbani-hat.webp"
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "The Dragon News",
     "tags": [
       "Next.js",
@@ -198,7 +234,7 @@
     "img": "/images/dragon-news.webp"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "Keen Keeper",
     "tags": [
       "React",
@@ -232,7 +268,7 @@
     "img": "/images/keenkeper.webp"
   },
   {
-    "id": 7,
+    "id": 8,
     "title": "Hero Io",
     "tags": [
       "React",
@@ -263,7 +299,7 @@
     "img": "/images/hero-io.webp"
   },
   {
-    "id": 8,
+    "id": 9,
     "title": "Book Vibe",
     "tags": [
       "React",
@@ -292,7 +328,7 @@
     "img": "/images/book-vibe.webp"
   },
   {
-    "id": 9,
+    "id": 10,
     "title": "Digtools platfrom",
     "tags": [
       "React",
@@ -322,270 +358,5 @@
       "Responsive Design"
     ],
     "img": "/images/digtools.webp"
-  },
-  {
-    "id": 10,
-    "title": "github issu traker",
-    "tags": [
-      "JavaScript",
-      "API",
-      "Utility"
-    ],
-    "teacstack": [
-      "JavaScript",
-      "GitHub API",
-      "HTML",
-      "CSS"
-    ],
-    "desc": "A tool to track and manage GitHub repository issues.",
-    "longDesc": "The GitHub Issue Tracker is a specialized utility tool developed to manage and track repository issues through a centralized interface. Users can sign in with administrative credentials to access a secure dashboard for overseeing project tasks and bugs. The application utilizes GitHub APIs to fetch and sync data directly from repositories in real-time. It is designed to simplify the developer workflow by organizing open issues and their current resolution status. This project serves as a functional tool for teams looking to streamline their issue management process efficiently.",
-    "starting_date": "Mar 7, 2026",
-    "finished_date": "Mar 9, 2026",
-    "link": "https://md-moynul.github.io/Github-Issue-Tracker/",
-    "githubFrontend": "https://md-moynul.github.io/Github-Issue-Tracker/",
-    "githubBackend": null,
-    "features": [
-      "GitHub API Sync",
-      "Secure Login Dashboard",
-      "Issue Status Tracking",
-      "Project Overview",
-      "Developer Tools"
-    ],
-    "img": "/images/issue-tracker.webp"
-  },
-  {
-    "id": 11,
-    "title": "Tree store",
-    "tags": [
-      "HTML",
-      "JavaScript",
-      "E-commerce"
-    ],
-    "teacstack": [
-      "HTML",
-      "JavaScript",
-      "CSS"
-    ],
-    "desc": "An online plant store focused on environmental sustainability.",
-    "longDesc": "Tree Store is an online plant storefront dedicated to promoting environmental sustainability through the purchase of various trees. The platform features an extensive catalog of fruit-bearing and flowering trees with detailed specifications on growth and benefits. Each listing provides information about climate requirements and nutritional value to help home gardeners make informed choices. Users can filter products by category and manage their selections through an interactive shopping cart system. This project supports a global mission to plant one million trees and create a greener future for coming generations.",
-    "starting_date": "Mar 6, 2026",
-    "finished_date": "Mar 10, 2026",
-    "link": "https://md-moynul.github.io/tree-store/",
-    "githubFrontend": "https://github.com/md-moynul/tree-store",
-    "githubBackend": null,
-    "features": [
-      "Plant Catalog API",
-      "Category-based Filtering",
-      "Interactive Shopping Cart",
-      "Eco-friendly Mission",
-      "Detailed Plant Specs"
-    ],
-    "img": "/images/tree-store.webp"
-  },
-  {
-    "id": 12,
-    "title": "English janala",
-    "tags": [
-      "HTML",
-      "JavaScript",
-      "Education"
-    ],
-    "teacstack": [
-      "HTML",
-      "Tailwind CSS",
-      "JavaScript"
-    ],
-    "desc": "An interactive web-based English learning platform for beginners.",
-    "longDesc": "English Janala is an interactive web-based learning platform designed to help beginners improve their English skills in an engaging way. The project focuses on providing structured, beginner-friendly lessons that cover essential vocabulary and basic grammar. It features a clean UI where students can practice exercises and explore an FAQ section for technical or language-related questions. The platform includes a simple authentication interface to track individual user progress and provide a personalized journey. Overall, the goal of English Janala is to make language education accessible and intuitive for learners at all levels.",
-    "starting_date": "Mar 3, 2026",
-    "finished_date": "Mar 6, 2026",
-    "link": "https://md-moynul.github.io/English-Janala/",
-    "githubFrontend": "https://github.com/md-moynul/English-Janala",
-    "githubBackend": null,
-    "features": [
-      "Interactive Lessons",
-      "Vocabulary Learning System",
-      "Language FAQ Section",
-      "Simple Auth UI",
-      "Step-by-step Progression"
-    ],
-    "img": "/images/english-janala.webp"
-  },
-  {
-    "id": 13,
-    "title": "Job traker",
-    "tags": [
-      "JavaScript",
-      "Career",
-      "DOM"
-    ],
-    "teacstack": [
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "DOM Manipulation"
-    ],
-    "desc": "A career management tool to organize job applications.",
-    "longDesc": "Job Tracker is a simple yet effective application designed to help job seekers organize their career mission by tracking applications. The interface provides a clear overview of available jobs and allows users to categorize them into sections like interviews or rejections. It features a clean UI with descriptions for each role, including requirements for technologies like React and Node.js. Job seekers can manage their search status and view detailed information such as salary ranges and company locations directly on the platform. Built with JavaScript DOM manipulation, the project handles dynamic updates to the job lists and status indicators.",
-    "starting_date": "Feb 23, 2026",
-    "finished_date": "Feb 24, 2026",
-    "link": "https://md-moynul.github.io/Job-Tracker/",
-    "githubFrontend": "https://github.com/md-moynul/Job-Tracker",
-    "githubBackend": null,
-    "features": [
-      "Application Status Tracking",
-      "Job Board Listings",
-      "DOM State Updates",
-      "Filter by Outcome",
-      "Company Details View"
-    ],
-    "img": "/images/job-tracker.webp"
-  },
-  {
-    "id": 14,
-    "title": "pyoo bank",
-    "tags": [
-      "HTML",
-      "JavaScript",
-      "Fintech"
-    ],
-    "teacstack": [
-      "HTML",
-      "JavaScript",
-      "Tailwind CSS"
-    ],
-    "desc": "A banking interface for secure digital financial management.",
-    "longDesc": "Payoo Bank is a fintech-oriented banking interface designed to provide a secure environment for digital financial management. The application features a robust login system that validates user credentials before granting access to personal account dashboards. Users can perform various banking operations through the interface, including viewing balance information and managing transactions. The frontend is built using HTML and JavaScript with a focus on responsiveness to ensure the platform works on all screens. It also includes error handling logic to return specific feedback for invalid transaction amounts, ensuring data integrity.",
-    "starting_date": "Feb 16, 2026",
-    "finished_date": "Feb 21, 2026",
-    "link": "https://md-moynul.github.io/payoo-bank/",
-    "githubFrontend": "https://github.com/md-moynul/payoo-bank",
-    "githubBackend": null,
-    "features": [
-      "Secure Login Verification",
-      "Transaction Logging",
-      "Balance Management",
-      "Error Feedback System",
-      "Responsive Banking UI"
-    ],
-    "img": "/images/payoo-bank.webp"
-  },
-  {
-    "id": 15,
-    "title": "Tea house",
-    "tags": [
-      "HTML",
-      "Tailwind CSS",
-      "Business"
-    ],
-    "teacstack": [
-      "HTML5",
-      "CSS3",
-      "Tailwind CSS",
-      "Responsive Design"
-    ],
-    "desc": "A responsive single-page website for a premium tea supplier.",
-    "longDesc": "The Tea House is a modern and elegant single-page website created for a premium supplier of tea and botanical solutions. It showcases a wide array of products including Milk Tea, Black Tea, and unique Green Tea blends for diverse tastes. The platform highlights the brand's commitment to quality by detailing the history and origins of their specialized tea services. Visitors can explore client testimonials, browse upcoming news and events, and subscribe to a newsletter for regular updates. Built with Tailwind CSS and HTML, the site is fully responsive and features smooth scrolling for a premium experience.",
-    "starting_date": "Feb 7, 2026",
-    "finished_date": "Feb 12, 2026",
-    "link": "https://md-moynul.github.io/tea-house/",
-    "githubFrontend": "https://github.com/md-moynul/tea-house",
-    "githubBackend": null,
-    "features": [
-      "Product Showcase Carousel",
-      "Client Testimonials",
-      "Events Calendar",
-      "Newsletter Subscription",
-      "Elegant Tailwind Design"
-    ],
-    "img": "/images/tea-house.webp"
-  },
-  {
-    "id": 16,
-    "title": "g3-architect-website",
-    "tags": [
-      "HTML5",
-      "CSS3",
-      "Architecture",
-      "Portfolio"
-    ],
-    "teacstack": [
-      "HTML5",
-      "CSS3",
-      "Responsive Design"
-    ],
-    "desc": "A modern architectural portfolio for the G3 Architect group.",
-    "longDesc": "The G3 Architect Website is a modern portfolio showcase created for a brand-new group of professional architects. It features a clean architectural layout that highlights professional designs and completed projects through high-quality visual sections. The site includes a dedicated facts section that displays credible statistics about awards won, projects finished, and clients served. Built with HTML5 and CSS3, the project is optimized for fast loading and provides a mobile-first user experience. The design includes a quick list of features and a sponsors section to establish industry authority for the firm.",
-    "starting_date": "Jan 22, 2026",
-    "finished_date": "Jan 29, 2026",
-    "link": "https://md-moynul.github.io/g3-architect-website/",
-    "githubFrontend": "https://github.com/md-moynul/g3-architect-website",
-    "githubBackend": null,
-    "features": [
-      "Architectural Grid Layout",
-      "Project Facts Counters",
-      "Sponsor Showcase",
-      "Mobile-First Design",
-      "Clean Hero Section"
-    ],
-    "img": "/images/g3-architect.webp"
-  },
-  {
-    "id": 17,
-    "title": "Tach wave",
-    "tags": [
-      "Technology",
-      "Blog",
-      "Podcast"
-    ],
-    "teacstack": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "desc": "A hub for tech insights, productivity hacks, and podcast episodes.",
-    "longDesc": "TechWave is a technology-focused platform and podcast hub providing a daily dose of tech insights and productivity hacks. The site serves as a central repository for over 200 published episodes featuring interviews with industry leaders and startup founders. Users can access rich resources for every episode, including detailed show notes, transcripts, and additional learning materials. The platform is designed to be mobile-friendly, allowing a global community of listeners from over 120 countries to stay updated. Its clean interface emphasizes the discovery of trending tech topics like the future of AI and remote work strategies.",
-    "starting_date": "Jan 19, 2026",
-    "finished_date": "Jan 20, 2026",
-    "link": "https://md-moynul.github.io/TechWave/",
-    "githubFrontend": "https://github.com/md-moynul.github.io/TechWave/",
-    "githubBackend": null,
-    "features": [
-      "Podcast Episode Player",
-      "Resource Transcripts",
-      "Mobile-Friendly Design",
-      "Global Community Metrics",
-      "Topic Roadmaps"
-    ],
-    "img": "/images/techWave.webp"
-  },
-  {
-    "id": 18,
-    "title": "Knowledge-Vault",
-    "tags": [
-      "Markdown",
-      "Library",
-      "Resource"
-    ],
-    "teacstack": [
-      "HTML",
-      "CSS",
-      "Markdown"
-    ],
-    "desc": "A centralized personal knowledge management system.",
-    "longDesc": "Knowledge Vault is a centralized learning hub designed to act as a 'second brain' for managing development notes and tutorials. The platform allows users to capture ideas with a built-in structure from day one, turning scattered notes into an interconnected web. It features a clean and scalable folder system that organizes knowledge storage by topics and resources for easy navigation. Built with a focus on productivity, it helps learners think more clearly by connecting related concepts automatically as they write. This project is ideal for developers and students who need a single source of truth for their evolving technical skills.",
-    "starting_date": "Jan 8, 2026",
-    "finished_date": "Jan 9, 2026",
-    "link": "https://md-moynul.github.io/Knowledge-Vault/",
-    "githubFrontend": "https://github.com/md-moynul/Knowledge-Vault",
-    "githubBackend": null,
-    "features": [
-      "Structured Folder System",
-      "Markdown-Based Notes",
-      "Interconnected Knowledge Graph",
-      "Search & Navigation",
-      "Scalable Data Storage"
-    ],
-    "img": "/images/knowledge-vault.webp"
   }
 ]

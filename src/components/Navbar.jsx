@@ -85,14 +85,14 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-3 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
+      <div className="fixed top-4 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
         <motion.nav
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: hidden ? -120 : 0, opacity: hidden ? 0 : 1 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: "easeOut" }}
           className={`${
             hidden ? "pointer-events-none" : "pointer-events-auto"
-          } flex items-center justify-between gap-3 md:gap-6 px-4 md:px-5 py-1.5 rounded-full w-full max-w-3xl border border-gray-300/60 dark:border-white/15 bg-transparent backdrop-blur-md shadow-sm transition-[border-color,box-shadow] duration-300`}
+          } flex items-center justify-between gap-3 md:gap-6 px-4 md:px-5 py-1.5 rounded-full w-full max-w-3xl border border-gray-300/60 dark:border-white/15 bg-white/75 dark:bg-zinc-950/75 backdrop-blur-xl shadow-md transition-[border-color,box-shadow] duration-300`}
         >
           <a
             href="#hero"
