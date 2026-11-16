@@ -8,7 +8,7 @@ A **MERN Stack Developer** from Rangpur, Bangladesh. I build full-stack web apps
 
 ## 👨‍💻 About Me
 
-- 🎓 **Education**: Computer Science & Technology (3rd Year Student at Rangpur Polytechnic Institute)
+- 🎓 **Education**: Diploma in Computer Science & Technology (3rd Year Student at Rangpur Polytechnic Institute)
 - 📍 **Location**: Rangpur, Bangladesh (BST / UTC +6)
 - 💼 **Status**: Available for Work (Internships, Junior Roles & Freelance Projects)
 - 🌾 **Passions**: Clean Code, Modern Web Development, and Sustainable Farming 🌱

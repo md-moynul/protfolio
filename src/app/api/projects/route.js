@@ -4,14 +4,7 @@ import { headers } from "next/headers";
 import { promises as fs } from "fs";
 import path from "path";
 import { isAdminSession } from "@/lib/admin";
-
-function normalizeImg(img) {
-  if (!img || typeof img !== "string") return "/images/smart-health.webp";
-  if (img.startsWith("http://") || img.startsWith("https://")) return img;
-  if (img === "/dragon-news.png") return "/images/dragon-news.webp";
-  if (img.endsWith(".png")) return img.replace(/\.png$/, ".webp");
-  return img;
-}
+import { normalizeProjectImg } from "@/lib/project-image";
 
 async function getLocalProjects() {
   try {
@@ -19,7 +12,7 @@ async function getLocalProjects() {
     const data = await fs.readFile(filePath, "utf-8");
     const parsed = JSON.parse(data);
     return Array.isArray(parsed)
-      ? parsed.map((p) => ({ ...p, img: normalizeImg(p.img || p.image) }))
+      ? parsed.map((p) => ({ ...p, img: normalizeProjectImg(p.img || p.image) }))
       : [];
   } catch (err) {
     console.error("Failed to read local projects.json fallback:", err);
@@ -49,7 +42,7 @@ export async function GET() {
       ...p,
       _id: p._id?.toString(),
       id: p.id !== undefined ? p.id : p._id?.toString(),
-      img: normalizeImg(p.img || p.image),
+      img: normalizeProjectImg(p.img || p.image),
     }));
 
     return Response.json(formatted, {

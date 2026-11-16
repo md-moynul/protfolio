@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { normalizeProjectImg } from "@/lib/project-image";
 import { useSession, signOut } from "@/lib/auth-client";
 import { email as defaultAdminEmail } from "@/data/profile";
 import { FaGithub } from "react-icons/fa";
@@ -778,7 +779,7 @@ export default function AdminDashboard() {
                           <div className="flex items-center gap-3">
                             <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 dark:bg-white/5 flex-shrink-0 relative border border-gray-200/50 dark:border-white/10">
                               <Image
-                                src={project.img || "/images/smart-health.webp"}
+                                src={normalizeProjectImg(project.img)}
                                 alt={project.title}
                                 fill
                                 className="object-cover"

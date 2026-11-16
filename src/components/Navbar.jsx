@@ -21,6 +21,7 @@ const Navbar = () => {
         { name: "About", id: "about" },
         { name: "Skills", id: "skills" },
         { name: "Projects", id: "projects" },
+        { name: "Experience", id: "experience" },
         { name: "Education", id: "education" },
         { name: "Contact", id: "contact" },
       ];
@@ -45,6 +46,7 @@ const Navbar = () => {
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
     { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
   ];
@@ -73,14 +75,14 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1 bg-gray-100/50 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/10">
+          <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-gray-100/50 dark:bg-white/5 p-1 rounded-full border border-gray-200 dark:border-white/10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.name;
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
+                  className={`relative px-2.5 lg:px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 ${
                     isActive
                       ? "text-[#2D8CFF] dark:text-white"
                       : "text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white"

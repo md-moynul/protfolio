@@ -3,12 +3,12 @@ import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp } fro
 import { email, phoneRaw, linkedin } from "@/data/profile";
 
 const Footer = () => (
-  <footer className="relative w-full py-20 border-t border-gray-200 dark:border-white/5 bg-white dark:bg-[#0A0A0B] overflow-hidden transition-colors">
+  <footer className="relative w-full py-12 md:py-16 border-t border-gray-200 dark:border-white/5 bg-white dark:bg-[#0A0A0B] overflow-hidden transition-colors">
     {/* Background Glow */}
     <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#2D8CFF]/5 blur-[120px] rounded-full"></div>
 
-    <div className="relative z-10 max-w-7xl mx-auto px-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-4 mb-16">
+    <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12 md:gap-4 mb-12 md:mb-16">
         <div className="flex flex-col gap-4">
           <Image
             src="/images/logo.png"

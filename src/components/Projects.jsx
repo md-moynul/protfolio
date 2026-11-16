@@ -14,19 +14,19 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi";
+import { normalizeProjectImg } from "@/lib/project-image";
 
 const PROJECTS_PER_PAGE = 3;
 
 function getProjectImg(project) {
-  const src = project?.img || project?.image;
-  if (!src || typeof src !== "string") return "/images/smart-health.webp";
-  if (src === "/dragon-news.png") return "/images/dragon-news.webp";
-  if (src.endsWith(".png")) return src.replace(/\.png$/, ".webp");
-  return src;
+  return normalizeProjectImg(project?.img || project?.image);
 }
 
 /* ─── Modal ─────────────────────────────────────────────────────────────── */
 const ProjectModal = ({ project, onClose }) => {
+  const [hasError, setHasError] = useState(false);
+  const imgSrc = hasError ? "/images/smart-health.webp" : getProjectImg(project);
+
   // Close on Escape key
   useEffect(() => {
     const handleKey = (e) => { if (e.key === "Escape") onClose(); };
@@ -74,10 +74,11 @@ const ProjectModal = ({ project, onClose }) => {
           {/* Project Header Image */}
           <div className="relative h-56 md:h-72 w-full overflow-hidden flex-shrink-0 bg-gray-900">
             <Image
-              src={getProjectImg(project)}
+              src={imgSrc}
               alt={project.title}
               width={1000}
               height={500}
+              onError={() => setHasError(true)}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#12131A] via-transparent to-black/30" />
@@ -198,24 +199,29 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 /* ─── Project Card ───────────────────────────────────────────────────────── */
-const ProjectCard = ({ project, onViewDetails }) => (
-  <motion.div
-    {...fadeInUp}
-    whileHover={{ y: -8 }}
-    transition={{ duration: 0.25 }}
-    className="glass-card rounded-2xl overflow-hidden group flex flex-col"
-  >
-    {/* Image */}
-    <div className="h-56 overflow-hidden relative">
-      <Image
-        alt={project.title}
-        src={getProjectImg(project)}
-        width={800}
-        height={400}
-        className="w-full h-full object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-30 group-hover:opacity-0 transition-opacity duration-500" />
-    </div>
+const ProjectCard = ({ project, onViewDetails }) => {
+  const [hasError, setHasError] = useState(false);
+  const imgSrc = hasError ? "/images/smart-health.webp" : getProjectImg(project);
+
+  return (
+    <motion.div
+      {...fadeInUp}
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.25 }}
+      className="glass-card rounded-2xl overflow-hidden group flex flex-col"
+    >
+      {/* Image */}
+      <div className="h-56 overflow-hidden relative">
+        <Image
+          alt={project.title}
+          src={imgSrc}
+          width={800}
+          height={400}
+          onError={() => setHasError(true)}
+          className="w-full h-full object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-30 group-hover:opacity-0 transition-opacity duration-500" />
+      </div>
 
     {/* Body */}
     <div className="p-6 flex flex-col flex-grow">
@@ -306,7 +312,8 @@ const ProjectCard = ({ project, onViewDetails }) => (
       </div>
     </div>
   </motion.div>
-);
+  );
+};
 
 /* ─── Pagination ─────────────────────────────────────────────────────────── */
 const Pagination = ({ current, total, onChange }) => {
@@ -367,11 +374,11 @@ const Projects = ({ initialProjects = [] }) => {
 
   return (
     <>
-      <section className="py-16 md:py-[120px] px-5 md:px-8 max-w-7xl mx-auto" id="projects">
+      <section className="py-12 md:py-16 px-5 md:px-8 max-w-7xl mx-auto" id="projects">
         {/* Header */}
         <motion.div
           {...fadeInUp}
-          className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+          className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-8"
         >
           <div className="max-w-2xl">
             <h2 className="font-h2 text-h2 text-gray-900 dark:text-white mb-4">Recent Projects</h2>

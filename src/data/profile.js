@@ -31,5 +31,6 @@ export const github = profile.github;
 export const facebook = profile.facebook;
 
 export { certificates } from "./certificates";
+export { experience } from "./experience";
 
 export default profile;

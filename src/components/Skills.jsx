@@ -25,6 +25,10 @@ import {
   SiBetterauth,
   SiTypescript,
   SiFramer,
+  SiSocketdotio,
+  SiFastify,
+  SiShadcnui,
+  SiAxios,
 } from "react-icons/si";
 import {
   FiLayout,
@@ -72,6 +76,8 @@ const categories = [
     skills: [
       { Icon: SiNodedotjs, label: "Node.js", subtitle: "Runtime Environment", color: "#339933" },
       { Icon: SiExpress, label: "Express.js", subtitle: "REST Framework", color: "inherit", className: "text-gray-900 dark:text-white" },
+      { Icon: SiSocketdotio, label: "Socket.io", subtitle: "Real-time Events", color: "inherit", className: "text-gray-900 dark:text-white" },
+      { Icon: SiFastify, label: "Fastify", subtitle: "Node.js Framework", color: "inherit", className: "text-gray-900 dark:text-white" },
       { Icon: SiJsonwebtokens, label: "JWT", subtitle: "Token Authentication", color: "#535151" },
       { Icon: SiBetterauth, label: "Better Auth", subtitle: "Modern Auth Suite", color: "inherit", className: "text-gray-900 dark:text-white" },
     ],
@@ -102,6 +108,7 @@ const categories = [
     dotColor: "#06B6D4",
     skills: [
       { Icon: SiTailwindcss, label: "Tailwind CSS", subtitle: "Utility Framework", color: "#06B6D4" },
+      { Icon: SiShadcnui, label: "shadcn/ui", subtitle: "Component Library", color: "inherit", className: "text-gray-900 dark:text-white" },
       { Icon: SiDaisyui, label: "DaisyUI", subtitle: "Tailwind Components", color: "#5A0EF8" },
       { Icon: SiHeroui, label: "HeroUI", subtitle: "Modern UI Library", color: "inherit", className: "text-gray-900 dark:text-white" },
     ],
@@ -115,6 +122,7 @@ const categories = [
       { Icon: SiGit, label: "Git", subtitle: "Version Control", color: "#F05032" },
       { Icon: SiGithub, label: "GitHub", subtitle: "Collaboration", color: "inherit", className: "text-gray-900 dark:text-white" },
       { Icon: VscodeIcon, label: "VS Code", subtitle: "Primary Editor", color: "#007ACC" },
+      { Icon: SiAxios, label: "Axios", subtitle: "HTTP Client", color: "#5A29E4" },
       { Icon: SiFigma, label: "Figma", subtitle: "UI/UX Prototyping", color: "#F24E1E" },
       { Icon: SiPenpot, label: "Penpot", subtitle: "Open-Source Design", color: "#3449FF" },
     ],
@@ -327,7 +335,9 @@ const CategoryNode = ({
         {/* Horizontal Group of Technology Cards */}
         <div
           className={`grid grid-cols-1 sm:grid-cols-2 relative z-10 ${
-            category.skills.length >= 5
+            category.skills.length === 6
+              ? "md:grid-cols-3 lg:grid-cols-3"
+              : category.skills.length === 5
               ? "md:grid-cols-3 lg:grid-cols-5"
               : "md:grid-cols-2 lg:grid-cols-4"
           } gap-3 md:gap-4`}
@@ -351,7 +361,7 @@ const Skills = () => {
   const progressPoints = [0.06, 0.21, 0.36, 0.51, 0.66, 0.81, 0.96];
 
   // Estimated initial offsets to prevent any flicker before measurement
-  const targetsRef = useRef([180, -50, -270, -480, -700, -900, -1080]);
+  const targetsRef = useRef([0, -180, -380, -580, -780, -980, -1180]);
 
   // Track the raw scroll progress of the 420vh section
   const { scrollYProgress } = useScroll({
@@ -395,6 +405,9 @@ const Skills = () => {
   // On touch/mobile devices or reduced-motion, bypass spring and use scroll directly
   const activeProgress = useDirectScroll ? scrollYProgress : smoothProgress;
 
+  // Dynamic top fade gradient: only fades in as categories scroll upwards past the initial view
+  const topFadeOpacity = useTransform(activeProgress, [0, progressPoints[0] + 0.05], [0, 1]);
+
   // Measurement stability using ResizeObserver and document.fonts.ready
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -407,6 +420,10 @@ const Skills = () => {
       const items = listRef.current.querySelectorAll("[data-category-item]");
       if (items.length === categories.length) {
         const newTargets = Array.from(items).map((el, i) => {
+          if (i === 0) {
+            // Keep the first category close to the header to avoid an awkward empty gap
+            return 0;
+          }
           if (i === items.length - 1) {
             // Align the bottom of the list with the bottom of the viewport for the last category
             const lastTarget = Math.round(viewportRect.height - listRef.current.offsetHeight);
@@ -505,7 +522,7 @@ const Skills = () => {
           height: "100dvh",
           width: "100%",
         }}
-        className="flex flex-col justify-between py-6 sm:py-8 md:py-10 overflow-hidden z-10"
+        className="flex flex-col justify-between py-5 sm:py-6 md:py-8 overflow-hidden z-10"
       >
         {/* Subtle Top Scroll Progress Indicator */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-gray-200/40 dark:bg-white/5 z-30">
@@ -532,8 +549,11 @@ const Skills = () => {
           ref={viewportRef}
           className="flex-1 w-full max-w-5xl mx-auto pl-8 sm:pl-12 pr-4 sm:pr-6 relative overflow-hidden flex flex-col justify-start"
         >
-          {/* Static Top Fade Gradient */}
-          <div className="absolute top-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-b from-white dark:from-[#0A0A0B] to-transparent pointer-events-none z-30" />
+          {/* Dynamic Top Fade Gradient */}
+          <motion.div
+            style={{ opacity: topFadeOpacity }}
+            className="absolute top-0 left-0 right-0 h-10 sm:h-14 bg-gradient-to-b from-white dark:from-[#0A0A0B] to-transparent pointer-events-none z-30"
+          />
 
           {/* Static Bottom Fade Gradient */}
           <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-gradient-to-t from-white dark:from-[#0A0A0B] to-transparent pointer-events-none z-30" />

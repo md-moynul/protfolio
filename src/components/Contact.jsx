@@ -97,11 +97,11 @@ const Contact = () => {
   };
 
   return (
-    <section className="bg-transparent py-16 md:py-32 transition-colors" id="contact">
-      <div className="max-w-7xl mx-auto px-5 mb-16 md:mb-20">
+    <section className="bg-transparent py-12 md:py-16 transition-colors" id="contact">
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
         <motion.div
           {...fadeInUp}
-          className="bg-white dark:bg-surface-container p-6 md:p-16 rounded-3xl border border-gray-200 dark:border-white/5 flex flex-col lg:flex-row gap-10 lg:gap-20 relative overflow-hidden shadow-sm dark:shadow-2xl"
+          className="bg-white dark:bg-surface-container p-6 md:p-16 rounded-3xl border border-gray-200 dark:border-white/5 flex flex-col lg:flex-row gap-10 lg:gap-20 relative overflow-hidden shadow-[0_4px_20px_-2px_rgba(15,23,42,0.06)] dark:shadow-2xl"
         >
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full"></div>
           <div className="w-full lg:w-1/2 flex flex-col gap-6 relative z-10">

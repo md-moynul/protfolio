@@ -54,7 +54,7 @@ const InteractiveBackground = () => {
 
     const draw = () => {
       const accent = "45,140,255";
-      const bg = isDark ? "10,10,12" : "255,255,255";
+      const bg = isDark ? "10,10,12" : "248,250,252";
       
       // Clear with slight trail
       ctx.fillStyle = `rgba(${bg}, 0.15)`;

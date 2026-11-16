@@ -11,6 +11,7 @@ import {
   FiCheckCircle,
   FiCode,
   FiGlobe,
+  FiBriefcase,
 } from "react-icons/fi";
 import { FaGraduationCap, FaRocket } from "react-icons/fa";
 import { currentYear, degree, institute, phone, phoneRaw } from "@/data/profile";
@@ -38,7 +39,7 @@ const About = () => {
 
   return (
     <section
-      className="py-16 md:py-[120px] px-5 md:px-8 bg-transparent transition-colors"
+      className="py-12 md:py-16 px-5 md:px-8 bg-transparent transition-colors"
       id="about"
     >
       <div className="max-w-7xl mx-auto">
@@ -87,7 +88,7 @@ const About = () => {
             <div className="flex flex-col gap-5">
               <p className="text-body-lg text-gray-700 dark:text-zinc-300 leading-relaxed text-left md:text-justify hyphens-auto">
                 I&apos;m a Computer Science student at{" "}
-                <span className="text-primary font-semibold">
+                <span className="text-[#2D8CFF] font-semibold">
                   {institute}
                 </span>
                 . I enjoy turning ideas into working web apps, and I&apos;m learning something new with every project I build.
@@ -110,6 +111,7 @@ const About = () => {
             <div className="flex flex-wrap gap-4 pt-2 border-t border-gray-100 dark:border-zinc-800">
               {[
                 { value: currentYear.replace(/ Year/i, ""), label: "Year", icon: FaGraduationCap, tooltip: degree },
+                { value: "1", label: "Intern", icon: FiBriefcase, tooltip: "Software Development Internship at S&S Digital" },
                 { value: "Open", label: "Work", icon: FiCheckCircle, tooltip: "Available for internships and junior roles" },
                 { value: "MERN", label: "Stack", icon: FiCode, tooltip: "MongoDB, Express.js, React, Node.js" },
                 { value: "World", label: "Based", icon: FiGlobe, tooltip: "Remote ready and available for global opportunities" },
@@ -122,7 +124,7 @@ const About = () => {
                     initial: { y: 0 },
                     hover: { y: -8 }
                   }}
-                  className="flex flex-col items-center px-5 py-3 bg-primary/5 rounded-2xl border border-primary/10 min-w-[80px] relative cursor-help transition-colors duration-300 hover:bg-primary/10 hover:shadow-[0_10px_30px_-10px_rgba(45,140,255,0.3)] group/stat"
+                  className="flex flex-col items-center px-5 py-3 bg-[#2D8CFF]/10 dark:bg-[#2D8CFF]/15 rounded-2xl border border-[#2D8CFF]/25 dark:border-[#2D8CFF]/30 min-w-[80px] relative cursor-help transition-all duration-300 hover:bg-[#2D8CFF]/20 hover:border-[#2D8CFF]/45 hover:shadow-[0_10px_30px_-10px_rgba(45,140,255,0.3)] group/stat"
                 >
                   {/* Custom Tooltip */}
                   {tooltip && (
@@ -139,7 +141,7 @@ const About = () => {
                       }}
                       className="absolute bottom-full left-1/2 mb-4 px-4 py-2 bg-gray-900/90 dark:bg-zinc-800/90 backdrop-blur-md text-white text-xs font-semibold rounded-xl pointer-events-none whitespace-nowrap z-30 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/10 flex items-center gap-2"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2D8CFF] animate-pulse" />
                       {tooltip}
                       <div className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-gray-900/90 dark:border-t-zinc-800/90" />
                     </motion.div>
@@ -150,14 +152,14 @@ const About = () => {
                       initial: { rotate: 0, scale: 1 },
                       hover: { rotate: 12, scale: 1.2 }
                     }}
-                    className="text-primary/70 text-xl mb-1 transition-colors duration-300 group-hover/stat:text-primary flex items-center justify-center"
+                    className="text-[#2D8CFF] text-xl mb-1 transition-colors duration-300 group-hover/stat:text-[#1a7ae8] flex items-center justify-center"
                   >
                     <IconComponent className="text-xl" />
                   </motion.div>
-                  <span className="text-xl font-black text-primary leading-none">
+                  <span className="text-xl font-black text-[#2D8CFF] leading-none">
                     {value}
                   </span>
-                  <span className="text-xs uppercase tracking-[0.2em] text-gray-600 dark:text-zinc-300 mt-1.5 font-bold">
+                  <span className="text-xs uppercase tracking-[0.2em] text-gray-700 dark:text-zinc-300 mt-1.5 font-bold">
                     {label}
                   </span>
                 </motion.div>
@@ -170,7 +172,7 @@ const About = () => {
             variants={fadeInUp}
             className="md:col-span-1 lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center text-center gap-4 group"
           >
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+            <div className="w-16 h-16 rounded-full bg-[#2D8CFF]/10 flex items-center justify-center text-[#2D8CFF] group-hover:scale-110 transition-transform duration-300">
               <FiMapPin className="text-3xl" />
             </div>
             <div>
@@ -203,7 +205,7 @@ const About = () => {
             variants={fadeInUp}
             className="md:col-span-1 lg:col-span-4 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-4"
           >
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+            <div className="w-12 h-12 rounded-2xl bg-[#2D8CFF]/10 flex items-center justify-center text-[#2D8CFF]">
               <FiTerminal className="text-2xl" />
             </div>
             <div>
@@ -224,7 +226,7 @@ const About = () => {
             className="md:col-span-2 lg:col-span-8 glass-card p-6 md:p-8 rounded-3xl flex flex-col gap-5"
           >
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+              <div className="w-12 h-12 rounded-2xl bg-[#2D8CFF]/10 flex items-center justify-center text-[#2D8CFF]">
                 <FaRocket className="text-2xl" />
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-xl">
@@ -240,9 +242,9 @@ const About = () => {
               ].map((text) => (
                 <div
                   key={text}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10 text-base font-medium text-gray-800 dark:text-zinc-200"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-gray-50/90 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 text-base font-medium text-gray-800 dark:text-zinc-200 shadow-xs"
                 >
-                  <FiArrowRight className="text-primary text-xl flex-shrink-0" />
+                  <FiArrowRight className="text-[#2D8CFF] text-xl flex-shrink-0" />
                   {text}
                 </div>
               ))}

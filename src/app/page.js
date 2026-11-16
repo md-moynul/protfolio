@@ -1,26 +1,20 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Education from "@/components/Education";
+import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
-import About from "@/components/About";
+import Experience from "@/components/Experience";
+import Education from "@/components/Education";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { getProjectsCollection } from "@/lib/mongodb";
 import { promises as fs } from "fs";
 import path from "path";
+import { normalizeProjectImg } from "@/lib/project-image";
 
 // ISR: revalidate every 60 seconds
 export const revalidate = 60;
-
-function normalizeImg(img) {
-  if (!img || typeof img !== "string") return "/images/smart-health.webp";
-  if (img.startsWith("http://") || img.startsWith("https://")) return img;
-  if (img === "/dragon-news.png") return "/images/dragon-news.webp";
-  if (img.endsWith(".png")) return img.replace(/\.png$/, ".webp");
-  return img;
-}
 
 async function getInitialProjects() {
   try {
@@ -31,7 +25,7 @@ async function getInitialProjects() {
         ...p,
         _id: p._id?.toString(),
         id: p.id !== undefined ? p.id : p._id?.toString(),
-        img: normalizeImg(p.img || p.image),
+        img: normalizeProjectImg(p.img || p.image),
       }));
     }
   } catch (err) {
@@ -46,7 +40,7 @@ async function getInitialProjects() {
     const data = await fs.readFile(filePath, "utf-8");
     const parsed = JSON.parse(data);
     return Array.isArray(parsed)
-      ? parsed.map((p) => ({ ...p, img: normalizeImg(p.img || p.image) }))
+      ? parsed.map((p) => ({ ...p, img: normalizeProjectImg(p.img || p.image) }))
       : [];
   } catch (err) {
     console.error("Failed to load local projects.json in page.js:", err);
@@ -65,6 +59,7 @@ export default async function Home() {
       <About />
       <Skills />
       <Projects initialProjects={initialProjects} />
+      <Experience />
       <Education />
       <Contact />
       <Footer />
