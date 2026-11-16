@@ -17,6 +17,14 @@ import {
 
 const PROJECTS_PER_PAGE = 3;
 
+function getProjectImg(project) {
+  const src = project?.img || project?.image;
+  if (!src || typeof src !== "string") return "/images/smart-health.webp";
+  if (src === "/dragon-news.png") return "/images/dragon-news.webp";
+  if (src.endsWith(".png")) return src.replace(/\.png$/, ".webp");
+  return src;
+}
+
 /* ─── Modal ─────────────────────────────────────────────────────────────── */
 const ProjectModal = ({ project, onClose }) => {
   // Close on Escape key
@@ -66,7 +74,7 @@ const ProjectModal = ({ project, onClose }) => {
           {/* Project Header Image */}
           <div className="relative h-56 md:h-72 w-full overflow-hidden flex-shrink-0 bg-gray-900">
             <Image
-              src={project.img}
+              src={getProjectImg(project)}
               alt={project.title}
               width={1000}
               height={500}
@@ -201,7 +209,7 @@ const ProjectCard = ({ project, onViewDetails }) => (
     <div className="h-56 overflow-hidden relative">
       <Image
         alt={project.title}
-        src={project.img}
+        src={getProjectImg(project)}
         width={800}
         height={400}
         className="w-full h-full object-cover group-hover:scale-105 group-hover:brightness-110 transition-all duration-500"
