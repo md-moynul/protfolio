@@ -98,7 +98,7 @@ const About = () => {
                 <span className="font-bold text-gray-900 dark:text-white">
                   Rangpur, Bangladesh
                 </span>
-                , I work with the React ecosystem to build practical,
+                , I work with the MERN stack and modern React ecosystem to build practical,
                 user-friendly digital solutions. Beyond coding, I am deeply passionate about{" "}
                 <span className="font-bold text-emerald-500 dark:text-emerald-400">
                   Farming 🌱

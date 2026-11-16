@@ -1,8 +1,8 @@
 # 👋 Hi there, I'm Md. Moynul Islam
 
-### 🚀 Full-Stack MERN Developer & Computer Science Student
+### 🚀 Full-Stack Developer & Computer Science Student
 
-A **MERN Stack Developer** from Rangpur, Bangladesh. I build full-stack web apps with React, Next.js and Node.js, and I care about clean code and simple, usable design. Outside of programming, I am deeply committed to **Farming 🌱**, cultivating patience, discipline, and steady growth.
+A **Full-Stack Developer** from Rangpur, Bangladesh. I build web apps with React, Next.js, Node.js and MongoDB (the MERN stack), and I care about clean code and simple, usable design. Outside of programming, I am deeply committed to **Farming 🌱**, cultivating patience, discipline, and steady growth.
 
 ---
 

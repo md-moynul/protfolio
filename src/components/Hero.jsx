@@ -55,7 +55,6 @@ const Hero = () => {
                   <Typewriter
                     options={{
                       strings: [
-                        "MERN Stack Developer",
                         "Full-Stack Developer",
                         "React Developer",
                         "Next.js Developer",
@@ -72,7 +71,7 @@ const Hero = () => {
 
           {/* Short one-liner */}
           <p className="text-gray-600 dark:text-zinc-300 text-lg leading-relaxed max-w-lg mx-auto md:mx-0 text-center md:text-justify hyphens-auto">
-            MERN Stack Developer from Rangpur, Bangladesh. I build full-stack web apps with React, Next.js and Node.js, and I care about clean code and simple, usable design.
+            Full-Stack Developer from Rangpur, Bangladesh. I build web apps with React, Next.js, Node.js and MongoDB (the MERN stack), and I care about clean code and simple, usable design.
           </p>
 
           {/* CTAs */}
@@ -160,7 +159,7 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-white/30 dark:from-[#08080C]/40 to-transparent" />
             </div>
 
-            {/* Floating — MERN Stack */}
+            {/* Floating — Full-Stack */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -169,7 +168,7 @@ const Hero = () => {
             >
               <FiCode className="text-[#2D8CFF] text-lg" />
               <div>
-                <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">MERN Stack</p>
+                <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Full-Stack</p>
                 <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5">Developer</p>
               </div>
             </motion.div>
@@ -195,10 +194,10 @@ const Hero = () => {
               transition={{ delay: 0.9 }}
               className="absolute -bottom-6 -left-6 md:-bottom-2 md:-left-4 bg-white/90 dark:bg-[#0d0d14]/90 backdrop-blur-md border border-emerald-400/25 px-3 py-2 md:px-4 md:py-3 rounded-2xl flex items-center gap-2 shadow-lg z-20 scale-100 md:scale-100"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <div>
                 <p className="font-bold text-sm text-gray-900 dark:text-white leading-none">Open to Work</p>
-                <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5">Entry-Level MERN Developer</p>
+                <p className="text-xs text-gray-600 dark:text-zinc-300 uppercase font-semibold mt-0.5 whitespace-nowrap">Entry-Level Full-Stack Developer</p>
               </div>
             </motion.div>
 

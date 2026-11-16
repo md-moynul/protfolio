@@ -1,5 +1,7 @@
 export const profile = {
   name: "Md. Moynul Islam",
+  title: "Full-Stack Developer",
+  role: "Full-Stack Developer",
   currentYear: "3rd Year",
   degree: "Diploma in Computer Science & Technology",
   degreeShort: "Diploma CST",
@@ -16,6 +18,8 @@ export const profile = {
 };
 
 export const name = profile.name;
+export const title = profile.title;
+export const role = profile.role;
 export const currentYear = profile.currentYear;
 export const degree = profile.degree;
 export const degreeShort = profile.degreeShort;

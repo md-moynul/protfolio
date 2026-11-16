@@ -9,18 +9,22 @@ import profile from "@/data/profile";
 export const metadata = {
   metadataBase: new URL("https://md-moynul.vercel.app"),
   title: {
-    default: "Md. Moynul Islam | Full-Stack MERN Developer",
+    default: "Md. Moynul Islam | Full-Stack Developer",
     template: "%s | Md. Moynul Islam",
   },
   description:
-    "MERN Stack Developer from Rangpur, Bangladesh. Building modern web apps with clean code and thoughtful design.",
+    "Full-Stack Developer from Rangpur, Bangladesh. Building modern web apps with clean code and thoughtful design.",
   keywords: [
     "Md. Moynul Islam",
     "Moynul",
-    "MERN Stack Developer",
     "Full-Stack Developer",
+    "Full Stack Developer",
+    "MERN",
+    "MERN Stack",
     "Next.js Developer",
     "React Developer",
+    "Next.js",
+    "React",
     "Node.js",
     "MongoDB",
     "JavaScript",
@@ -36,9 +40,9 @@ export const metadata = {
     locale: "en_US",
     url: "https://md-moynul.vercel.app",
     siteName: `${profile.name} - Portfolio`,
-    title: `${profile.name} | Full-Stack MERN Developer`,
+    title: `${profile.name} | Full-Stack Developer`,
     description:
-      "MERN Stack Developer building modern web apps with clean code and thoughtful design.",
+      "Full-Stack Developer building modern web apps with clean code and thoughtful design.",
     images: [
       {
         url: "/moynul.webp",
@@ -50,9 +54,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} | Full-Stack MERN Developer`,
+    title: `${profile.name} | Full-Stack Developer`,
     description:
-      "MERN Stack Developer building modern web apps with clean code and thoughtful design.",
+      "Full-Stack Developer building modern web apps with clean code and thoughtful design.",
     images: ["/moynul.webp"],
   },
   icons: {
@@ -65,7 +69,7 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.name,
-    jobTitle: "Full-Stack MERN Developer",
+    jobTitle: "Full-Stack Developer (MERN)",
     url: "https://md-moynul.vercel.app",
     image: "https://md-moynul.vercel.app/moynul.webp",
     sameAs: [profile.github, profile.linkedin, profile.facebook].filter(Boolean),
