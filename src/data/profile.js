@@ -15,11 +15,13 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/md-moynul/",
   github: "https://github.com/md-moynul",
   facebook: "https://www.facebook.com/mdmoynulislam8",
+  resume: "https://drive.google.com/file/d/1krqQEJ1G4szC1cZJ8_AAtC5W2ghfaFwV/view?usp=sharing",
 };
 
 export const name = profile.name;
 export const title = profile.title;
 export const role = profile.role;
+export const resume = profile.resume;
 export const currentYear = profile.currentYear;
 export const degree = profile.degree;
 export const degreeShort = profile.degreeShort;

@@ -71,7 +71,7 @@ node --env-file=.env scripts/seed-projects.mjs
 - 💼 **LinkedIn**: [Md. Moynul Islam](https://www.linkedin.com/in/md-moynul/)
 - 🐙 **GitHub**: [@md-moynul](https://github.com/md-moynul)
 - 👤 **Facebook**: [Md Moynul Islam](https://www.facebook.com/mdmoynulislam8)
-- 📄 **Resume**: [View Resume (Google Drive)](https://drive.google.com/file/d/1YQlfdggQF5C-_IKfOABBFlRBATtcyxPD/view)
+- 📄 **Resume**: [View Resume (Google Drive)](https://drive.google.com/file/d/1krqQEJ1G4szC1cZJ8_AAtC5W2ghfaFwV/view?usp=sharing)
 
 ---
 

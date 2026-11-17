@@ -6,7 +6,7 @@ import Typewriter from "typewriter-effect";
 import { FaLinkedin, FaGithub, FaFacebook, FaEnvelope, FaPhone, FaWhatsapp, FaGraduationCap } from "react-icons/fa";
 import { FiArrowDown, FiFileText, FiCode } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
-import { currentYear, email, phoneRaw, linkedin } from "@/data/profile";
+import { currentYear, email, phoneRaw, linkedin, resume } from "@/data/profile";
 
 /* ── Hero ── */
 const Hero = () => {
@@ -87,7 +87,7 @@ const Hero = () => {
             </motion.a>
 
             <motion.a
-              href="https://drive.google.com/file/d/1YQlfdggQF5C-_IKfOABBFlRBATtcyxPD/view"
+              href={resume}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.04 }}
